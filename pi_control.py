@@ -37,13 +37,25 @@ pid_controller = PID()
 color_offset = BP.get_sensor(BP.PORT_1)
 motor_init_speed = 50
 motor_last_speed = 50
+PID.resetEpochError()
+PID_count = 0
 
 while (True):
     curr_color_val = BP.get_sensor(BP.PORT_1)
     error = curr_color_val - color_offset  # Offset to absolute center
 
-    left_power = motor_last_speed + error
-    right_power = motor_last_speed - error
+    if PID_count % 100 == 0:
+        if PID.evaluate():
+            PID.backProp()
+            PID.resetEpochError()
+
+
+    steer =  PID.totalError()
+
+    left_power = motor_last_speed + steer
+    right_power = motor_last_speed - steer
 
     BP.set_motor_power(BP.PORT_C, left_power)
     BP.set_motor_power(BP.PORT_B, right_power)
+    PID.UpdateError(error)
+    PID_count += 1

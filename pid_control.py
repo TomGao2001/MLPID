@@ -22,20 +22,20 @@ class PID(object):
         self.errorThreshold_ = 0.005
         self.learnRate_ = 0.01
 
-    def updateEpochError(self, cte):
+    def updateEpochError(self, cte): #
         self.i_e_fabs_ += abs(cte)
         self.epochCumulativeError_ += (cte * cte)
 
-    def resetEpochError(self):
+    def resetEpochError(self): #
         self.i_e_fabs_ = 0.0
         self.epochCumulativeError_ = 0.0
 
-    def evaluate(self):
-        if self.needsTraining_:
-            self.currentEpochError_ = sqrt(self.epochCumulativeError_ / self.epochLength_)
-            self.needsTraining_ = self.currentEpochError_ > self.errorThreshold_
+    def evaluate(self): #
+        self.currentEpochError_ = sqrt(self.epochCumulativeError_ / self.epochLength_)
+        self.needsTraining_ = self.currentEpochError_ > self.errorThreshold_
+        return self.needsTraining_
 
-    def adjust(self, Kx, dx, dE):
+    def adjust(self, Kx, dx, dE): #
         if (Kx == 'p'):
             partialDKx = self.Kp * dx * dE * self.learnRate_
             self.Kp -= partialDKx
@@ -53,12 +53,12 @@ class PID(object):
         self.adjust('i', -self.i_e_fabs_, deltaError)
         self.adjust('d', -self.d_error, deltaError)
 
-    def UpdateError(self, cte):
+    def UpdateError(self, cte): #
         self.d_error = cte - self.p_error
         self.p_error = cte
         self.i_error += cte
         self.updateEpochError(cte)
 
-    def TotalError(self):
+    def TotalError(self): #
         return -self.Kp * self.p_error - self.Ki * self.i_error - self.Kd * self.d_error
 
