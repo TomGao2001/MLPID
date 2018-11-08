@@ -44,7 +44,7 @@ while (True):
     curr_color_val = BP.get_sensor(BP.PORT_1)
     error = curr_color_val - color_offset  # Offset to absolute center
 
-    if PID_count % 100 == 0:
+    if PID_count % pid_controller.epochLength_ == 0:
         if PID.evaluate():
             PID.backProp()
             PID.resetEpochError()

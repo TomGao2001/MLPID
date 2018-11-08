@@ -61,4 +61,3 @@ class PID(object):
 
     def TotalError(self): #
         return -self.Kp * self.p_error - self.Ki * self.i_error - self.Kd * self.d_error
-
