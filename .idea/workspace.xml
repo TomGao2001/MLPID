@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e2cc8a8f-59d0-405b-b3ea-89838cad147e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BrickPi3_Examples/pi_control.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pid_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/pid_control.py" afterDir="false" />
+    <list default="true" id="e2cc8a8f-59d0-405b-b3ea-89838cad147e" name="Default Changelist" comment="Add the program that controls the car">
+      <change afterPath="$PROJECT_DIR$/pi_control.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BrickPi3_Examples/pi_control.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,6 +16,7 @@
     <session id="-659754273">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -32,12 +33,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="150" />
+          <entry key="py" value="377" />
+          <entry key="txt" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="150" />
+          <entry key="PLAIN_TEXT" value="37" />
+          <entry key="Python" value="377" />
         </counts>
       </usages-collector>
     </session>
@@ -47,8 +50,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BrickPi3_test_Color_Reflect.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="818">
-              <caret line="58" lean-forward="true" selection-start-line="29" selection-end-line="58" />
+            <state relative-caret-position="713">
+              <caret line="51" column="45" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="45" />
               <folding>
                 <element signature="e#676#772#0" expanded="true" />
               </folding>
@@ -71,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BrickPi3_Examples/LEGO-Motor_Power.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="45" column="102" selection-start-line="44" selection-end-line="45" selection-end-column="102" />
+            <state relative-caret-position="600">
+              <caret line="40" column="44" lean-forward="true" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="44" />
               <folding>
                 <element signature="e#720#816#0" expanded="true" />
               </folding>
@@ -90,10 +93,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/BrickPi3_Examples/pi_control.py">
+        <entry file="file://$PROJECT_DIR$/pi_control.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="75" lean-forward="true" selection-start-column="75" selection-end-column="75" />
+            <state relative-caret-position="615">
+              <caret line="41" column="45" lean-forward="true" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#96#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -124,6 +130,8 @@
         <option value="$PROJECT_DIR$/BrickPi3_Examples/LEGO-Motor_DPS.py" />
         <option value="$PROJECT_DIR$/pid_control.py" />
         <option value="$PROJECT_DIR$/BrickPi3_Examples/pi_control.py" />
+        <option value="$PROJECT_DIR$/BrickPi3_Examples/LEGO-Motor_Power.py" />
+        <option value="$PROJECT_DIR$/pi_control.py" />
       </list>
     </option>
   </component>
@@ -168,6 +176,11 @@
               <item name="MLPID" type="b2602c69:ProjectViewProjectNode" />
               <item name="MLPID" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="MLPID" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MLPID" type="462c0819:PsiDirectoryNode" />
+              <item name="BrickPi3_Examples" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -180,6 +193,11 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -239,6 +257,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add the program that controls the car" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add the program that controls the car" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/BrickPi3_Examples/LEGO-Motor_DPS.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -252,20 +274,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BrickPi3_test_Color_Reflect.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="818">
-          <caret line="58" lean-forward="true" selection-start-line="29" selection-end-line="58" />
+        <state relative-caret-position="713">
+          <caret line="51" column="45" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="45" />
           <folding>
             <element signature="e#676#772#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BrickPi3_Examples/LEGO-Motor_Power.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="102" selection-start-line="44" selection-end-line="45" selection-end-column="102" />
-          <folding>
-            <element signature="e#720#816#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -277,10 +289,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BrickPi3_Examples/pi_control.py">
+    <entry file="file://$PROJECT_DIR$/BrickPi3_Examples/LEGO-Motor_Power.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="75" lean-forward="true" selection-start-column="75" selection-end-column="75" />
+        <state relative-caret-position="600">
+          <caret line="40" column="44" lean-forward="true" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="44" />
+          <folding>
+            <element signature="e#720#816#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pi_control.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="45" lean-forward="true" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#96#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
