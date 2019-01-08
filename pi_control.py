@@ -41,12 +41,11 @@ pid_controller.resetEpochError()
 PID_count = 0
 
 while (True):
-	'''
+
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
 	print("current error: " + str(error))
-	'''
-	error = 0
+
 	try:
 		touched = BP.get_sensor(BP.PORT_2)
 	except brickpi3.SensorError as error:
@@ -79,8 +78,3 @@ while (True):
 	PID_count += 1
 
 	time.sleep(0.01)
-	try:
-		pass 
-	except KeyboardInterrupt:
-		BP.reset_all()
-		break;
