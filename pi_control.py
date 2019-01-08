@@ -32,11 +32,11 @@ except brickpi3.SensorError:
 			error = True
 	print("Configured.")
 
-pid_controller = PID(0.02,0,0)
+pid_controller = PID(0.005,0,0)
 color_offset = 50
 #from the lesson
-Lmotor_last_speed = 50
-Rmotor_last_speed = 50
+Lmotor_last_speed = 10
+Rmotor_last_speed = 10
 pid_controller.resetEpochError()
 PID_count = 0
 
