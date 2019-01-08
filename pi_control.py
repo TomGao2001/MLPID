@@ -52,7 +52,7 @@ while (True):
 		pid_controller.resetEpochError()
 	'''
 	pid_controller.UpdateError(error)
-	steer =  pid_controller.totalError()
+	steer =  pid_controller.TotalError()
 
 	left_power = motor_last_speed + steer
 	right_power = motor_last_speed - steer
