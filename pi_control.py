@@ -35,8 +35,6 @@ except brickpi3.SensorError:
 pid_controller = PID(0.005,0,0)
 color_offset = 50
 #from the lesson
-Lmotor_last_speed = 5
-Rmotor_last_speed = 5
 pid_controller.resetEpochError()
 PID_count = 0
 
@@ -72,8 +70,8 @@ while (True):
 	Lmotor_last_speed = left_power
 	Rmotor_last_speed = right_power
 
-	BP.set_motor_power(BP.PORT_C, left_power)
-	BP.set_motor_power(BP.PORT_B, right_power)
+	BP.set_motor_power(BP.PORT_C, left_power + 10)
+	BP.set_motor_power(BP.PORT_B, right_power + 10)
 
 	PID_count += 1
 
