@@ -44,7 +44,11 @@ while (True):
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
 	print("current error: " + str(error))
-	touched = BP.get_sensor(BP.PORT_2)
+
+	try:
+		touched = BP.get_sensor(BP.PORT_2)
+	except brickpi3.SensorError as error:
+		print(error)
 	if touched:
 		BP.reset_all()
 		break
