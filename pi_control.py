@@ -67,6 +67,8 @@ while (True):
 	PID_count += 1
 
 	time.sleep(0.01)
+	try:
+		pass 
 	except KeyboardInterrupt:
 		BP.reset_all()
 		break;
