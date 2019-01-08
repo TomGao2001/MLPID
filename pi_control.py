@@ -43,8 +43,10 @@ PID_count = 0
 while (True):
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
+	print("current error: " + error)
 	touched = BP.get_sensor(BP.PORT_2)
 	if touched:
+		BP.reset_all()
 		break
 	# Offset to absolute center
 	'''
@@ -56,7 +58,7 @@ while (True):
 		pid_controller.resetEpochError()
 	'''
 	pid_controller.UpdateError(error)
-	steer =  pid_controller.TotalError()
+	steer = pid_controller.TotalError()
 	print(steer)
 	left_power = motor_last_speed + steer
 	right_power = motor_last_speed - steer
