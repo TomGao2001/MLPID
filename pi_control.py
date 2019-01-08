@@ -32,19 +32,21 @@ except brickpi3.SensorError:
 			error = True
 	print("Configured.")
 
-pid_controller = PID(0.02,0.004,0)
+pid_controller = PID(0.02,0,0)
 color_offset = 50
 #from the lesson
-motor_init_speed = 50
-motor_last_speed = 50
+Lmotor_last_speed = 50
+Rmotor_last_speed = 50
 pid_controller.resetEpochError()
 PID_count = 0
 
 while (True):
+	'''
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
 	print("current error: " + str(error))
-
+	'''
+	error = 0
 	try:
 		touched = BP.get_sensor(BP.PORT_2)
 	except brickpi3.SensorError as error:
@@ -64,8 +66,12 @@ while (True):
 	pid_controller.UpdateError(error)
 	steer = pid_controller.TotalError()
 	print(steer)
-	left_power = motor_last_speed + steer
-	right_power = motor_last_speed - steer
+
+	left_power = Lmotor_last_speed + steer
+	right_power = Rmotor_last_speed - steer
+
+	Lmotor_last_speed = left_power
+	Rmotor_last_speed = right_power
 
 	BP.set_motor_power(BP.PORT_C, left_power)
 	BP.set_motor_power(BP.PORT_B, right_power)
