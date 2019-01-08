@@ -7,7 +7,7 @@ import brickpi3 # import the BrickPi3 drivers
 
 BP = brickpi3.BrickPi3()
 BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.EV3_COLOR_REFLECTED)
-
+BP.set_sensor_type(BP.PORT_2, BP.SENSOR_TYPE.TOUCH)
 try:
 	# reset encoder B
 	BP.offset_motor_encoder(BP.PORT_B, BP.get_motor_encoder(BP.PORT_B))  # Right
@@ -32,7 +32,7 @@ except brickpi3.SensorError:
 			error = True
 	print("Configured.")
 
-pid_controller = PID(0.2,0.004,3)
+pid_controller = PID(0.02,0.004,0)
 color_offset = 50
 #from the lesson
 motor_init_speed = 50
@@ -42,7 +42,11 @@ PID_count = 0
 
 while (True):
 	curr_color_val = BP.get_sensor(BP.PORT_1)
-	error = curr_color_val - color_offset  # Offset to absolute center
+	error = curr_color_val - color_offset
+	touched = BP.get_sensor(BP.PORT_2)
+	if touched:
+		break
+	# Offset to absolute center
 	'''
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
@@ -53,7 +57,7 @@ while (True):
 	'''
 	pid_controller.UpdateError(error)
 	steer =  pid_controller.TotalError()
-
+	print(steer)
 	left_power = motor_last_speed + steer
 	right_power = motor_last_speed - steer
 
@@ -61,3 +65,8 @@ while (True):
 	BP.set_motor_power(BP.PORT_B, right_power)
 
 	PID_count += 1
+
+	time.sleep(0.01)
+	except KeyboardInterrupt:
+		BP.reset_all()
+		break;
