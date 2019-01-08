@@ -15,10 +15,12 @@ class PID(object):
 		self.Kd = Kd
 
 		self.counter_ = 0
+
 		self.epochCumulativeError_ = 0.0
 		self.previousEpochError_ = 0.0
 		self.needsTraining_ = True
 		self.currentEpochError_ = 0.0
+		
 		self.errorThreshold_ = 0.005
 		self.learnRate_ = 0.01
 
@@ -62,4 +64,3 @@ class PID(object):
 
 	def TotalError(self):
 		return -self.Kp * self.p_error - self.Ki * self.i_error - self.Kd * self.d_error
-

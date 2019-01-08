@@ -88,7 +88,7 @@ int main()
                         if(pid.needsTraining_) {
                             
                             pid.backProp();
-                            
+                                 
                         } else {
                             std::cout << "CTE: " << cte << " Steering Value: " << steer_value << " | rmse: " << sqrt(pid.currentEpochError_/pid.counter_) << " Kp: " << pid.getKp() << " Ki: " << pid.getKi() << " Kd: " << pid.getKd() << std::endl;
                         }
