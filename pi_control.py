@@ -59,9 +59,9 @@ while (True):
 
 	if cur_switch == 0:
 		pid_controller.Kp = MyKp + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
-	else if cur_switch == 1:
+	elif cur_switch == 1:
 		pid_controller.Ki = MyKi + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
-	else if cur_switch == 2:
+	elif cur_switch == 2:
 		pid_controller.Kd = MyKd + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
 	
 	print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
