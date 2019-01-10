@@ -1,13 +1,14 @@
 from __future__ import print_function # use python 3 syntax but make it compatible with python 2
 from __future__ import division       #                           ''
 from pid_control import PID
-
+import os
 import time     # import the time library for the sleep function
 import brickpi3 # import the BrickPi3 drivers
 
 BP = brickpi3.BrickPi3()
 BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.EV3_COLOR_REFLECTED)
 BP.set_sensor_type(BP.PORT_2, BP.SENSOR_TYPE.TOUCH)
+BP.set_sensor_type(BP.PORT_3, BP.SENSOR_TYPE.TOUCH)
 try:
 	BP.offset_motor_encoder(BP.PORT_A, BP.get_motor_encoder(BP.PORT_A))
 	BP.offset_motor_encoder(BP.PORT_B, BP.get_motor_encoder(BP.PORT_B))  # Right
@@ -34,9 +35,12 @@ except brickpi3.SensorError:
 			error = True
 	print("Configured.")
 
+Mydict = {"Kp", "Ki", "Kd"}
+cur_switch = 0
 color_offset = 50
 PID_count = 0
 touched = False
+change_flag = False
 
 base_speed = 30
 MyKp = 0.25
@@ -49,7 +53,17 @@ pid_controller.resetEpochError()
 MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
 MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 while (True):
-	pid_controller.Kp = MyKp + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
+	os.system('cls')
+
+	print("Mode: changing " + Mydict[cur_switch])
+
+	if cur_switch == 0:
+		pid_controller.Kp = MyKp + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
+	else if cur_switch == 1:
+		pid_controller.Ki = MyKi + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
+	else if cur_switch == 2:
+		pid_controller.Kd = MyKd + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
+	
 	print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
 
 	MySpeed = base_speed + (BP.get_motor_encoder(BP.PORT_D) - MotorD_Offset) / 100
@@ -61,13 +75,17 @@ while (True):
 		error = 0
 	print("Current error: " + str(error))
 
-	try:
-		touched = BP.get_sensor(BP.PORT_2)
-	except brickpi3.SensorError as eee:
-		print(eee)
+	touched = BP.get_sensor(BP.PORT_2)
 	if touched:
 		BP.reset_all()
 		break
+
+	change_flag = BP.get_sensor(BP.PORT_3)
+	if change_flag:
+		MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
+		cur_switch = (cur_switch + 1) % 3
+
+
 	# Offset to absolute center
 	'''
 	if PID_count % pid_controller.epochLength_ == 0:
