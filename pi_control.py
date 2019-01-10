@@ -43,7 +43,7 @@ MyKp = 0.25
 MyKi = 0
 MyKd = 0
 MySpeed = base_speed
-pid_controller = PID(MyKp, Myki, Mykd)
+pid_controller = PID(MyKp, MyKi, MyKd)
 pid_controller.resetEpochError()
 
 MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
