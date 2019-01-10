@@ -9,11 +9,11 @@ BP = brickpi3.BrickPi3()
 BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.EV3_COLOR_REFLECTED)
 BP.set_sensor_type(BP.PORT_2, BP.SENSOR_TYPE.TOUCH)
 try:
-	# reset encoder B
+	BP.offset_motor_encoder(BP.PORT_A, BP.get_motor_encoder(BP.PORT_A))
 	BP.offset_motor_encoder(BP.PORT_B, BP.get_motor_encoder(BP.PORT_B))  # Right
 	BP.offset_motor_encoder(BP.PORT_C, BP.get_motor_encoder(BP.PORT_B))  # Left
-except IOError as error:
-	print(error)
+except IOError as ee:
+	print(ee)
 
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
@@ -40,12 +40,15 @@ PID_count = 0
 Lmotor_last_speed = 0
 Rmotor_last_speed = 0
 touched = False
-
+encoder_offset = BP.get_motor_encoder(BP.PORT_A)
 while (True):
-
+	PID.kp += (BP.get_motor_encoder(BP.PORT_A) - encoder_offset) / 35000
+	print("Current Kp value: " + str(PID.kp))
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
-	print("current error: " + str(error))
+	if error < 5 and error > -5:
+		error = 0
+	print("Current error: " + str(error))
 
 	try:
 		touched = BP.get_sensor(BP.PORT_2)
