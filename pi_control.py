@@ -32,7 +32,7 @@ except brickpi3.SensorError:
 			error = True
 	print("Configured.")
 
-pid_controller = PID(0.05,0,0)
+pid_controller = PID(0.25,0,0.75)
 color_offset = 50
 #from the lesson
 pid_controller.resetEpochError()
@@ -42,9 +42,9 @@ Rmotor_last_speed = 0
 touched = False
 encoder_offset = BP.get_motor_encoder(BP.PORT_A)
 while (True):
-	pid_controller.Kp = (BP.get_motor_encoder(BP.PORT_A) - encoder_offset) / 1000
+	pid_controller.Kd = (BP.get_motor_encoder(BP.PORT_A) - encoder_offset) / 750
 
-	print("Current Kp value: " + str(pid_controller.Kp))
+	print("Current Kd value: " + str(pid_controller.Kd))
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
 	if error < 5 and error > -5:
@@ -81,8 +81,8 @@ while (True):
 	BP.set_motor_power(BP.PORT_B, right_power + 10)
 	'''
 
-	BP.set_motor_power(BP.PORT_C, 10 + steer)
-	BP.set_motor_power(BP.PORT_B, 10 - steer)
+	BP.set_motor_power(BP.PORT_C, max(0, 10 + steer))
+	BP.set_motor_power(BP.PORT_B, max(0, 10 - steer))
 	PID_count += 1
 
 	time.sleep(0.02)
