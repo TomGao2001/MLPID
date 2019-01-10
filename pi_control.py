@@ -15,7 +15,8 @@ try:
 	BP.offset_motor_encoder(BP.PORT_D, BP.get_motor_encoder(BP.PORT_D))
 except IOError as ee:
 	print(ee)
-'''
+
+
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
 # BP.get_sensor returns the sensor value (what we want to display).
@@ -32,7 +33,7 @@ except brickpi3.SensorError:
 		except brickpi3.SensorError:
 			error = True
 	print("Configured.")
-'''
+
 color_offset = 50
 PID_count = 0
 touched = False
