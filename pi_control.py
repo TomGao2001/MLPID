@@ -39,6 +39,7 @@ pid_controller.resetEpochError()
 PID_count = 0
 Lmotor_last_speed = 0
 Rmotor_last_speed = 0
+touched = False
 
 while (True):
 
