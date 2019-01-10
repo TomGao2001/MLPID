@@ -42,8 +42,8 @@ Rmotor_last_speed = 0
 touched = False
 encoder_offset = BP.get_motor_encoder(BP.PORT_A)
 while (True):
-	PID.Kp += (BP.get_motor_encoder(BP.PORT_A) - encoder_offset) / 35000
-	print("Current Kp value: " + str(PID.Kp))
+	pid_controller.kp += (BP.get_motor_encoder(BP.PORT_A) - encoder_offset) / 35000
+	print("Current Kp value: " + str(pid_controller.Kp))
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
 	if error < 5 and error > -5:
