@@ -35,7 +35,7 @@ except brickpi3.SensorError:
 			error = True
 	print("Configured.")
 
-Mydict = {"Kp", "Ki", "Kd"}
+Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
 cur_switch = 0
 color_offset = 50
 PID_count = 0
