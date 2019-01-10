@@ -53,7 +53,7 @@ pid_controller.resetEpochError()
 MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
 MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 while (True):
-	os.system('cls')
+	os.system('clear')
 
 	print("Mode: changing " + Mydict[cur_switch])
 
