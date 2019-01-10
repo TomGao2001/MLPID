@@ -11,10 +11,11 @@ BP.set_sensor_type(BP.PORT_2, BP.SENSOR_TYPE.TOUCH)
 try:
 	BP.offset_motor_encoder(BP.PORT_A, BP.get_motor_encoder(BP.PORT_A))
 	BP.offset_motor_encoder(BP.PORT_B, BP.get_motor_encoder(BP.PORT_B))  # Right
-	BP.offset_motor_encoder(BP.PORT_C, BP.get_motor_encoder(BP.PORT_B))  # Left
+	BP.offset_motor_encoder(BP.PORT_C, BP.get_motor_encoder(BP.PORT_C))  # Left
+	BP.offset_motor_encoder(BP.PORT_D, BP.get_motor_encoder(BP.PORT_D))
 except IOError as ee:
 	print(ee)
-
+'''
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
 # BP.get_sensor returns the sensor value (what we want to display).
@@ -31,20 +32,28 @@ except brickpi3.SensorError:
 		except brickpi3.SensorError:
 			error = True
 	print("Configured.")
-
-pid_controller = PID(0.25,0,0.75)
+'''
 color_offset = 50
-#from the lesson
-pid_controller.resetEpochError()
 PID_count = 0
-Lmotor_last_speed = 0
-Rmotor_last_speed = 0
 touched = False
-encoder_offset = BP.get_motor_encoder(BP.PORT_A)
-while (True):
-	pid_controller.Kd = (BP.get_motor_encoder(BP.PORT_A) - encoder_offset) / 500
 
+base_speed = 40
+MyKp = 0.25
+Myki = 0
+Mykd = 0.75
+MySpeed = base_speed
+pid_controller = PID(MyKp, Myki, Mykd)
+pid_controller.resetEpochError()
+
+MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
+MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
+while (True):
+	pid_controller.Kd = Mykd + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
 	print("Current Kd value: " + str(pid_controller.Kd))
+
+	MySpeed = base_speed + (BP.get_motor_encoder(BP.PORT_D) - MotorD_Offset) / 100
+	print("Current Max Speed: " + str(MySpeed))
+
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
 	if error < 5 and error > -5:
@@ -81,8 +90,8 @@ while (True):
 	BP.set_motor_power(BP.PORT_B, right_power + 10)
 	'''
 
-	BP.set_motor_power(BP.PORT_C, max(0, 20 + steer))
-	BP.set_motor_power(BP.PORT_B, max(0, 20 - steer))
+	BP.set_motor_power(BP.PORT_C, max(0, MySpeed + steer))
+	BP.set_motor_power(BP.PORT_B, max(0, MySpeed - steer))
 	PID_count += 1
 
 	time.sleep(0.02)
