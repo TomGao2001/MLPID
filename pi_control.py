@@ -41,7 +41,7 @@ touched = False
 base_speed = 30
 MyKp = 0.25
 Myki = 0
-Mykd = 0.75
+Mykd = 0
 MySpeed = base_speed
 pid_controller = PID(MyKp, Myki, Mykd)
 pid_controller.resetEpochError()
@@ -49,7 +49,7 @@ pid_controller.resetEpochError()
 MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
 MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 while (True):
-	pid_controller.Kd = Mykd + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
+	pid_controller.Kp = Mykp + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
 	print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
 
 	MySpeed = base_speed + (BP.get_motor_encoder(BP.PORT_D) - MotorD_Offset) / 100
