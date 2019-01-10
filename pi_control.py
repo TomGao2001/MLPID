@@ -37,7 +37,7 @@ color_offset = 50
 PID_count = 0
 touched = False
 
-base_speed = 40
+base_speed = 30
 MyKp = 0.25
 Myki = 0
 Mykd = 0.75
@@ -49,7 +49,7 @@ MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
 MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 while (True):
 	pid_controller.Kd = Mykd + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 500
-	print("Current Kd value: " + str(pid_controller.Kd))
+	print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
 
 	MySpeed = base_speed + (BP.get_motor_encoder(BP.PORT_D) - MotorD_Offset) / 100
 	print("Current Max Speed: " + str(MySpeed))
