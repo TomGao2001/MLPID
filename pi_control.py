@@ -49,8 +49,8 @@ while (True):
 
 	try:
 		touched = BP.get_sensor(BP.PORT_2)
-	except brickpi3.SensorError as error:
-		print(error)
+	except brickpi3.SensorError as eee:
+		print(eee)
 	if touched:
 		BP.reset_all()
 		break
