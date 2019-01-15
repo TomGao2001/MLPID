@@ -85,7 +85,6 @@ while (True):
 		MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
 		cur_switch = (cur_switch + 1) % 3
 
-
 	# Offset to absolute center
 	'''
 	if PID_count % pid_controller.epochLength_ == 0:
@@ -98,16 +97,6 @@ while (True):
 	pid_controller.UpdateError(error)
 	steer = pid_controller.TotalError()
 	print(steer)
-	'''
-	left_power = Lmotor_last_speed + steer
-	right_power = Rmotor_last_speed - steer
-
-	Lmotor_last_speed = left_power
-	Rmotor_last_speed = right_power
-
-	BP.set_motor_power(BP.PORT_C, left_power + 10)
-	BP.set_motor_power(BP.PORT_B, right_power + 10)
-	'''
 
 	BP.set_motor_power(BP.PORT_C, max(0, MySpeed + steer))
 	BP.set_motor_power(BP.PORT_B, max(0, MySpeed - steer))
