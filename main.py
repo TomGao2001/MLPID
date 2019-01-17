@@ -59,7 +59,7 @@ MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 start_flag = False
 
 while (True):
-	while(!start_flag):
+	while not start_flag:
 		os.system('clear')
 
 		print("Mode: changing " + Mydict[cur_switch])
