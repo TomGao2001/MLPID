@@ -17,7 +17,6 @@ try:
 except IOError as ee:
 	print(ee)
 
-
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
 # BP.get_sensor returns the sensor value (what we want to display).
@@ -57,6 +56,10 @@ MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
 MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 
 start_flag = False
+start_time = 0
+end_time = 0
+def printCurrentParameters():
+	print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
 
 while (True):
 	while not start_flag:
@@ -71,8 +74,6 @@ while (True):
 		elif cur_switch == 2:
 			pid_controller.Kd = MyKd + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 2000
 		
-		print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
-
 		MySpeed = base_speed + (BP.get_motor_encoder(BP.PORT_D) - MotorD_Offset) / 75
 		print("Current Max Speed: " + str(MySpeed))
 		
@@ -92,19 +93,15 @@ while (True):
 			while BP.get_sensor(BP.PORT_2):
 				pass
 			start_flag = True
+			start_time = time.time()
 			break
+		printCurrentParameters()
 		time.sleep(sampling_interval)
-
+	os.system('clear')
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
 	#if error < 3 and error > -3:
 	#	error = 0
-	print("Current error: " + str(error))
-
-	touched = BP.get_sensor(BP.PORT_2)
-	if touched:
-		BP.reset_all()
-		break
 
 	# Offset to absolute center
 	'''
@@ -117,6 +114,9 @@ while (True):
 	'''
 	pid_controller.UpdateError(error)
 	steer = pid_controller.TotalError()
+	
+	printCurrentParameters()
+	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))
 
 	BP.set_motor_power(BP.PORT_C, max(0, MySpeed + steer))
@@ -125,5 +125,11 @@ while (True):
 
 	TOTAL_ERROR += abs(error) * sampling_interval
 
+	touched = BP.get_sensor(BP.PORT_2)
+	if touched:
+		BP.reset_all()
+		end_time = time.time()
+		break
 	time.sleep(sampling_interval)
-print("\nTOTAL ERROR: " + str(TOTAL_ERROR))
+print("TIME ELAPSED: " + str(end_time - start_time))
+print("TOTAL ERROR: " + str(TOTAL_ERROR))
