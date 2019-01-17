@@ -82,7 +82,8 @@ while (True):
 
 	change_flag = BP.get_sensor(BP.PORT_3)
 	if change_flag:
-		while BP.get_sensor(BP.PORT_3)
+		while BP.get_sensor(BP.PORT_3):
+			pass
 		MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
 		cur_switch = (cur_switch + 1) % 3
 		change_flag = False
