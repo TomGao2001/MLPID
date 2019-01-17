@@ -42,7 +42,7 @@ PID_count = 0
 touched = False
 change_flag = False
 
-base_speed = 30
+base_speed = 10
 MyKp = 0.25
 MyKi = 0
 MyKd = 0
@@ -82,8 +82,10 @@ while (True):
 
 	change_flag = BP.get_sensor(BP.PORT_3)
 	if change_flag:
+		while BP.get_sensor(BP.PORT_3)
 		MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
 		cur_switch = (cur_switch + 1) % 3
+		change_flag = False
 
 	# Offset to absolute center
 	'''
