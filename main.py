@@ -9,6 +9,8 @@ BP = brickpi3.BrickPi3()
 BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.EV3_COLOR_REFLECTED)
 BP.set_sensor_type(BP.PORT_2, BP.SENSOR_TYPE.TOUCH)
 BP.set_sensor_type(BP.PORT_3, BP.SENSOR_TYPE.TOUCH)
+BP.set_sensor_type(BP.PORT_4, BP.SENSOR_TYPE.EV3_COLOR_COLOR)
+
 try:
 	BP.offset_motor_encoder(BP.PORT_A, BP.get_motor_encoder(BP.PORT_A))
 	BP.offset_motor_encoder(BP.PORT_B, BP.get_motor_encoder(BP.PORT_B))  # Right
@@ -23,12 +25,25 @@ except IOError as ee:
 try:
 	BP.get_sensor(BP.PORT_1)
 except brickpi3.SensorError:
-	print("Configuring...")
+	print("Configuring light sensor...")
 	error = True
 	while error:
 		time.sleep(0.03)
 		try:
 			BP.get_sensor(BP.PORT_1)
+			error = False
+		except brickpi3.SensorError:
+			error = True
+	print("Configured.")
+try:
+	BP.get_sensor(BP.PORT_4)
+except brickpi3.SensorError:
+	print("Configuring color sensor...")
+	error = True
+	while error:
+		time.sleep(0.03)
+		try:
+			BP.get_sensor(BP.PORT_4)
 			error = False
 		except brickpi3.SensorError:
 			error = True
