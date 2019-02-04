@@ -80,7 +80,7 @@ while (True):
 	while not start_flag:
 		os.system('clear')
 
-		print("Mode: changing " + Mydict[cur_switch])
+		print("Tuning Mode: " + Mydict[cur_switch])
 
 		if cur_switch == 0:
 			pid_controller.Kp = MyKp + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 1000
@@ -119,14 +119,14 @@ while (True):
 	#	error = 0
 
 	# Offset to absolute center
-	'''
+	
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
 		if(pid_controller.needsTraining_):
 			pid_controller.backProp()
 		
 		pid_controller.resetEpochError()
-	'''
+	
 	pid_controller.UpdateError(error)
 	steer = pid_controller.TotalError()
 	

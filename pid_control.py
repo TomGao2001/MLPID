@@ -1,5 +1,4 @@
 from math import sqrt
-
 epochLength_ = 200;
 
 class PID(object):
@@ -47,7 +46,6 @@ class PID(object):
 		if(Kx == 'd'):
 			partialDKx = self.Kd * dx * dE * self.learnRate_;
 			self.Kd -= partialDKx;
-
 
 	def backProp(self):
 		deltaError = self.previousEpochError_ - self.currentEpochError_
