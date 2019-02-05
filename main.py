@@ -142,8 +142,8 @@ while (True):
 	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))
 
-	BP.set_motor_power(BP.PORT_C, max(0, MySpeed + steer))
-	BP.set_motor_power(BP.PORT_B, max(0, MySpeed - steer))
+	BP.set_motor_power(BP.PORT_C, max(0, MySpeed - steer))
+	BP.set_motor_power(BP.PORT_B, max(0, MySpeed + steer))
 	PID_count += 1
 
 	TOTAL_ERROR += abs(error) * sampling_interval
