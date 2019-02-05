@@ -112,9 +112,17 @@ while (True):
 			break
 		printCurrentParameters()
 		time.sleep(sampling_interval)
+
 	os.system('clear')
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
+
+	start_color = BP.get_sensor(BP.PORT_4)
+	while start_color == 5:
+		BP.set_motor_power(BP.PORT_C, 5)
+		BP.set_motor_power(BP.PORT_B, 5)
+		start_color = BP.get_sensor(BP.PORT_4)
+
 	#if error < 3 and error > -3:
 	#	error = 0
 
@@ -134,8 +142,8 @@ while (True):
 	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))
 
-	BP.set_motor_power(BP.PORT_C, max(0, MySpeed + steer))
-	BP.set_motor_power(BP.PORT_B, max(0, MySpeed - steer))
+	BP.set_motor_power(BP.PORT_C, max(0, MySpeed - steer))
+	BP.set_motor_power(BP.PORT_B, max(0, MySpeed + steer))
 	PID_count += 1
 
 	TOTAL_ERROR += abs(error) * sampling_interval
@@ -145,6 +153,12 @@ while (True):
 		BP.reset_all()
 		end_time = time.time()
 		break
+	color_detected = BP.get_sensor(BP.PORT_4)
+	if color_detected == 2:
+		BP.reset_all()
+		end_time = time.time()
+		break
 	time.sleep(sampling_interval)
+
 print("TIME ELAPSED: " + str(end_time - start_time))
 print("TOTAL ERROR: " + str(TOTAL_ERROR))
