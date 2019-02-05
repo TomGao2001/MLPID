@@ -1,5 +1,5 @@
 from math import sqrt
-epochLength_ = 200;
+
 
 class PID(object):
 	def __init__(self, Kp, Ki, Kd):
@@ -12,6 +12,8 @@ class PID(object):
 		self.Kp = Kp
 		self.Ki = Ki
 		self.Kd = Kd
+
+		self.epochLength_ = 200
 
 		self.counter_ = 0
 
@@ -32,20 +34,20 @@ class PID(object):
 		self.epochCumulativeError_ = 0.0
 
 	def evaluate(self):
-		if needsTraining_:
+		if self.needsTraining_:
 			self.currentEpochError_ = sqrt(self.epochCumulativeError_ / self.epochLength_)
 			self.needsTraining_ = self.currentEpochError_ > self.errorThreshold_			
 
 	def adjust(self, Kx, dx, dE):
-		if(Kx == 'p'):
-			partialDKx = self.Kp * dx * dE * self.learnRate_;
-			self.Kp -= partialDKx;
-		if(Kx == 'i'):
-			partialDKx = self.Ki * dx * dE * self.learnRate_;
-			self.Ki -= partialDKx;
-		if(Kx == 'd'):
-			partialDKx = self.Kd * dx * dE * self.learnRate_;
-			self.Kd -= partialDKx;
+		if Kx == 'p':
+			partialDKx = self.Kp * dx * dE * self.learnRate_
+			self.Kp -= partialDKx
+		if Kx == 'i':
+			partialDKx = self.Ki * dx * dE * self.learnRate_
+			self.Ki -= partialDKx
+		if Kx == 'd':
+			partialDKx = self.Kd * dx * dE * self.learnRate_
+			self.Kd -= partialDKx
 
 	def backProp(self):
 		deltaError = self.previousEpochError_ - self.currentEpochError_
