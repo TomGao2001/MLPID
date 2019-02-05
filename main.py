@@ -117,10 +117,9 @@ while (True):
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
 
-	if not out_start_zone:
-		BP.set_motor_power(BP.PORT_C, 5)
-		BP.set_motor_power(BP.PORT_B, 5)
-	while BP.get_sensor(BP.PORT_4) == 5 and not out_start_zone:
+	while not out_start_zone:
+		BP.set_motor_power(BP.PORT_C, 10)
+		BP.set_motor_power(BP.PORT_B, 10)
 		if BP.get_sensor(BP.PORT_4) != 5:
 			start_time = time.time()
 			out_start_zone = True
