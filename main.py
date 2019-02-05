@@ -51,7 +51,7 @@ except brickpi3.SensorError:
 
 Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
 cur_switch = 0
-color_offset = 50
+color_offset = 40
 PID_count = 0
 touched = False
 change_flag = False
@@ -118,8 +118,8 @@ while (True):
 	error = curr_color_val - color_offset
 
 	while not out_start_zone:
-		BP.set_motor_power(BP.PORT_C, 10)
-		BP.set_motor_power(BP.PORT_B, 10)		
+		BP.set_motor_power(BP.PORT_C, 7)
+		BP.set_motor_power(BP.PORT_B, 7)		
 		if BP.get_sensor(BP.PORT_4) == 6:
 			start_time = time.time()
 			out_start_zone = True
