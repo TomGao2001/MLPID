@@ -117,11 +117,11 @@ while (True):
 	curr_color_val = BP.get_sensor(BP.PORT_1)
 	error = curr_color_val - color_offset
 
-	start_color = BP.get_sensor(BP.PORT_4)
-	while start_color == 5 && not out_start_zone:
+	if not out_start_zone:
 		BP.set_motor_power(BP.PORT_C, 5)
 		BP.set_motor_power(BP.PORT_B, 5)
-		start_color = BP.get_sensor(BP.PORT_4)
+	while BP.get_sensor(BP.PORT_4) == 5 && not out_start_zone:
+		pass
 	if not out_start_zone:
 		start_time = time.time()
 	out_start_zone = True
@@ -129,14 +129,14 @@ while (True):
 	#	error = 0
 
 	# Offset to absolute center
-	
+	'''
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
 		if(pid_controller.needsTraining_):
 			pid_controller.backProp()
 		
 		pid_controller.resetEpochError()
-	
+	'''
 	pid_controller.UpdateError(error)
 	steer = pid_controller.TotalError()
 	
@@ -144,8 +144,8 @@ while (True):
 	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))
 
-	BP.set_motor_power(BP.PORT_C, max(0, MySpeed - steer))
-	BP.set_motor_power(BP.PORT_B, max(0, MySpeed + steer))
+	BP.set_motor_power(BP.PORT_C, max(0, MySpeed + steer))
+	BP.set_motor_power(BP.PORT_B, max(0, MySpeed - steer))
 	PID_count += 1
 
 	TOTAL_ERROR += abs(error) * sampling_interval
