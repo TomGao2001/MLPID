@@ -71,6 +71,7 @@ MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
 MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 
 start_flag = False
+out_start_zone = False
 start_time = 0
 end_time = 0
 def printCurrentParameters():
@@ -118,11 +119,11 @@ while (True):
 	error = curr_color_val - color_offset
 
 	start_color = BP.get_sensor(BP.PORT_4)
-	while start_color == 5:
+	while start_color == 5 && not out_start_zone:
 		BP.set_motor_power(BP.PORT_C, 5)
 		BP.set_motor_power(BP.PORT_B, 5)
 		start_color = BP.get_sensor(BP.PORT_4)
-
+	out_start_zone = True
 	#if error < 3 and error > -3:
 	#	error = 0
 
@@ -154,7 +155,7 @@ while (True):
 		end_time = time.time()
 		break
 	color_detected = BP.get_sensor(BP.PORT_4)
-	if color_detected == 2:
+	if color_detected == 5:
 		BP.reset_all()
 		end_time = time.time()
 		break
