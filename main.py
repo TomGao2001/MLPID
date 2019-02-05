@@ -109,7 +109,6 @@ while (True):
 			while BP.get_sensor(BP.PORT_2):
 				pass
 			start_flag = True
-			start_time = time.time()
 			break
 		printCurrentParameters()
 		time.sleep(sampling_interval)
@@ -123,6 +122,8 @@ while (True):
 		BP.set_motor_power(BP.PORT_C, 5)
 		BP.set_motor_power(BP.PORT_B, 5)
 		start_color = BP.get_sensor(BP.PORT_4)
+	if not out_start_zone:
+		start_time = time.time()
 	out_start_zone = True
 	#if error < 3 and error > -3:
 	#	error = 0
