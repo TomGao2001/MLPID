@@ -3,7 +3,7 @@ from __future__ import division       #                           ''
 from pid_control import PID
 import os
 import time     # import the time library for the sleep function
-import brickpi3 # import the BrickPi3 drivers
+import brickpi3  # import the BrickPi3 drivers
 
 BP = brickpi3.BrickPi3()
 BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.EV3_COLOR_REFLECTED)
