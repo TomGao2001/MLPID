@@ -119,14 +119,12 @@ while (True):
 
 	while not out_start_zone:
 		BP.set_motor_power(BP.PORT_C, 10)
-		BP.set_motor_power(BP.PORT_B, 10)
-		print(BP.get_sensor(BP.PORT_4))
-		'''
-		if BP.get_sensor(BP.PORT_4) != 5:
+		BP.set_motor_power(BP.PORT_B, 10)		
+		if BP.get_sensor(BP.PORT_4) == 6:
 			start_time = time.time()
 			out_start_zone = True
 			break
-		'''
+		
 	#if error < 3 and error > -3:
 	#	error = 0
 
