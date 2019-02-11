@@ -74,10 +74,11 @@ start_flag = False
 out_start_zone = False
 start_time = 0
 end_time = 0
+
 def printCurrentParameters():
 	print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
 
-while (True):
+def initialization():
 	while not start_flag:
 		os.system('clear')
 
@@ -113,21 +114,38 @@ while (True):
 		printCurrentParameters()
 		time.sleep(sampling_interval)
 
+def start_check():
 	os.system('clear')
-	curr_color_val = BP.get_sensor(BP.PORT_1)
-	error = curr_color_val - color_offset
-
-	while not out_start_zone:
-		BP.set_motor_power(BP.PORT_C, 7)
+	print("waiting...and be patient...")
+	BP.set_motor_power(BP.PORT_C, 7)
 		BP.set_motor_power(BP.PORT_B, 7)		
 		if BP.get_sensor(BP.PORT_4) == 6:
 			start_time = time.time()
 			out_start_zone = True
-			break
-		
-	#if error < 3 and error > -3:
-	#	error = 0
 
+def stop_check():
+	if BP.get_sensor(BP.PORT_2):
+		BP.reset_all()
+		end_time = time.time()
+		print("STOPPED MANUALLY")
+		return True
+	
+	if BP.get_sensor(BP.PORT_4) == 5 and out_start_zone:
+		BP.reset_all()
+		end_time = time.time()
+		print("STOPPED")
+		return True
+
+while (True):
+	initialization()
+	
+	while not out_start_zone:
+		start_check()
+	
+	os.system('clear')
+	
+	error = BP.get_sensor(BP.PORT_1) - color_offset
+	
 	# Offset to absolute center
 	'''
 	if PID_count % pid_controller.epochLength_ == 0:
@@ -137,6 +155,7 @@ while (True):
 		
 		pid_controller.resetEpochError()
 	'''
+
 	pid_controller.UpdateError(error)
 	steer = pid_controller.TotalError()
 	
@@ -150,17 +169,11 @@ while (True):
 
 	TOTAL_ERROR += abs(error) * sampling_interval
 
-	touched = BP.get_sensor(BP.PORT_2)
-	if touched:
-		BP.reset_all()
-		end_time = time.time()
+	if stop_check():
 		break
-	
-	if BP.get_sensor(BP.PORT_4) == 5 and out_start_zone:
-		BP.reset_all()
-		end_time = time.time()
-		break
+
 	time.sleep(sampling_interval)
 
 print("TIME ELAPSED: " + str(end_time - start_time))
+print("PID count: " + str(PID_count))
 print("TOTAL ERROR: " + str(TOTAL_ERROR))
