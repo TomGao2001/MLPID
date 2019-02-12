@@ -92,7 +92,7 @@ def initialization():
 			pid_controller.Kd = MyKd + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 2000
 		
 		MySpeed = base_speed + (BP.get_motor_encoder(BP.PORT_D) - MotorD_Offset) / 75
-		print("Current Max Speed: " + str(MySpeed))
+		print(f'Max Speed: {MySpeed:.3f}')
 		
 		if BP.get_sensor(BP.PORT_3):
 			while BP.get_sensor(BP.PORT_3):
