@@ -79,6 +79,7 @@ def printCurrentParameters():
 
 def initialization():
 	start_flag = False
+	cur_switch = 0
 	while not start_flag:
 		os.system('clear')
 
@@ -110,7 +111,8 @@ def initialization():
 			while BP.get_sensor(BP.PORT_2):
 				pass
 			start_flag = True
-			break
+			return MySpeed
+		
 		printCurrentParameters()
 		time.sleep(sampling_interval)
 
@@ -137,7 +139,7 @@ def stop_check():
 		return True
 
 while (True):
-	initialization()
+	MySpeed = initialization()
 	
 	while not out_start_zone:
 		start_check()
