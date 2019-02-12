@@ -123,20 +123,6 @@ def start_check():
 		start_time = time.time()
 		out_start_zone = True
 
-def stop_check():
-	global end_time, out_start_zone
-	if BP.get_sensor(BP.PORT_2):
-		BP.reset_all()
-		end_time = time.time()
-		print("STOPPED MANUALLY")
-		return True
-	
-	if BP.get_sensor(BP.PORT_4) == 5 and out_start_zone:
-		BP.reset_all()
-		end_time = time.time()
-		print("STOPPED")
-		return True
-
 while (True):
 	initialization()
 	
@@ -170,7 +156,16 @@ while (True):
 
 	TOTAL_ERROR += abs(error) * sampling_interval
 
-	if stop_check():
+	if BP.get_sensor(BP.PORT_2):
+		BP.reset_all()
+		end_time = time.time()
+		print("STOPPED MANUALLY")
+		break
+	
+	if BP.get_sensor(BP.PORT_4) == 5 and out_start_zone:
+		BP.reset_all()
+		end_time = time.time()
+		print("STOPPED")
 		break
 
 	time.sleep(sampling_interval)
