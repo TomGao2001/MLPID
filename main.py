@@ -76,9 +76,6 @@ end_time = 0
 def printCurrentParameters():
 	print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
 
-def initialization():
-
-
 while (True):
 	#initialization()
 	while not start_flag:
