@@ -109,7 +109,6 @@ while (True):
 			while BP.get_sensor(BP.PORT_2):
 				pass
 			start_flag = True
-			return
 		
 		printCurrentParameters()
 		time.sleep(sampling_interval)
