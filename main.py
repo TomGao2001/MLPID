@@ -76,7 +76,7 @@ def initialization():
 	MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 	start_flag = False
 	cur_switch = 0
-	global MyKp, MyKi, MyKd, pid_controller, MySpeed, base_speed, start_time
+	global MyKp, MyKi, MyKd, pid_controller, MySpeed, base_speed
 	while not start_flag:
 		os.system('clear')
 
@@ -114,6 +114,7 @@ def initialization():
 		time.sleep(sampling_interval)
 
 def start_check():
+	global start_time, out_start_zone
 	os.system('clear')
 	print("waiting...and be patient...")
 	BP.set_motor_power(BP.PORT_C, 7)
@@ -123,6 +124,7 @@ def start_check():
 		out_start_zone = True
 
 def stop_check():
+	global end_time, out_start_zone
 	if BP.get_sensor(BP.PORT_2):
 		BP.reset_all()
 		end_time = time.time()
