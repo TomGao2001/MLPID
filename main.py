@@ -92,7 +92,7 @@ def initialization():
 			pid_controller.Kd = MyKd + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 2000
 		
 		MySpeed = base_speed + (BP.get_motor_encoder(BP.PORT_D) - MotorD_Offset) / 75
-		print(f'Max Speed: {MySpeed:.3f}')
+		print("Current Max Speed: " + str(MySpeed)[:5])
 		
 		if BP.get_sensor(BP.PORT_3):
 			while BP.get_sensor(BP.PORT_3):
@@ -174,6 +174,6 @@ while (True):
 
 	time.sleep(sampling_interval)
 
-print("TIME ELAPSED: " + str(end_time - start_time))
+print("TIME ELAPSED: " + str(end_time - start_time)[:5])
 print("PID count: " + str(PID_count))
-print("TOTAL ERROR: " + str(TOTAL_ERROR))
+print("TOTAL ERROR: " + str(TOTAL_ERROR)[:10])
