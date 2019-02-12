@@ -118,10 +118,10 @@ def start_check():
 	os.system('clear')
 	print("waiting...and be patient...")
 	BP.set_motor_power(BP.PORT_C, 7)
-		BP.set_motor_power(BP.PORT_B, 7)		
-		if BP.get_sensor(BP.PORT_4) == 6:
-			start_time = time.time()
-			out_start_zone = True
+	BP.set_motor_power(BP.PORT_B, 7)		
+	if BP.get_sensor(BP.PORT_4) == 6:
+		start_time = time.time()
+		out_start_zone = True
 
 def stop_check():
 	if BP.get_sensor(BP.PORT_2):
