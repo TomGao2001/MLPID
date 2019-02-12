@@ -54,7 +54,7 @@ color_offset = 50
 PID_count = 0
 
 sampling_interval = 0.02
-base_speed = 10
+base_speed = 15
 MyKp = 0.25
 MyKi = 0
 MyKd = 0
@@ -166,4 +166,5 @@ while (True):
 
 print("TIME ELAPSED: " + str(end_time - start_time)[:5])
 print("PID count: " + str(PID_count))
+print("SPEED: " + str(MySpeed)[:5])
 print("TOTAL ERROR: " + str(TOTAL_ERROR)[:10])
