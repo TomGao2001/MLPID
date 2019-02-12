@@ -62,6 +62,11 @@ MySpeed = base_speed
 pid_controller = PID(MyKp, MyKi, MyKd)
 pid_controller.resetEpochError()
 
+MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
+MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
+start_flag = False
+cur_switch = 0
+
 TOTAL_ERROR = 0.0
 
 out_start_zone = False
@@ -72,11 +77,10 @@ def printCurrentParameters():
 	print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
 
 def initialization():
-	MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
-	MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
-	start_flag = False
-	cur_switch = 0
-	global MyKp, MyKi, MyKd, pid_controller, MySpeed, base_speed
+
+
+while (True):
+	#initialization()
 	while not start_flag:
 		os.system('clear')
 
@@ -113,9 +117,6 @@ def initialization():
 		printCurrentParameters()
 		time.sleep(sampling_interval)
 
-while (True):
-	initialization()
-	
 	while not out_start_zone:
 		os.system('clear')
 		print("waiting...and be patient...")
