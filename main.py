@@ -50,11 +50,8 @@ except brickpi3.SensorError:
 	print("Configured.")
 
 Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
-cur_switch = 0
 color_offset = 40
 PID_count = 0
-touched = False
-change_flag = False
 
 sampling_interval = 0.02
 base_speed = 10
@@ -67,9 +64,6 @@ pid_controller.resetEpochError()
 
 TOTAL_ERROR = 0.0
 
-MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
-MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
-
 out_start_zone = False
 start_time = 0
 end_time = 0
@@ -78,8 +72,11 @@ def printCurrentParameters():
 	print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
 
 def initialization():
+	MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
+	MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 	start_flag = False
 	cur_switch = 0
+	global MyKp, MyKi, MyKd, pid_controller, MySpeed, base_speed, start_time
 	while not start_flag:
 		os.system('clear')
 
@@ -111,7 +108,7 @@ def initialization():
 			while BP.get_sensor(BP.PORT_2):
 				pass
 			start_flag = True
-			return MySpeed
+			return
 		
 		printCurrentParameters()
 		time.sleep(sampling_interval)
@@ -139,7 +136,7 @@ def stop_check():
 		return True
 
 while (True):
-	MySpeed = initialization()
+	initialization()
 	
 	while not out_start_zone:
 		start_check()
