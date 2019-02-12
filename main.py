@@ -50,7 +50,7 @@ except brickpi3.SensorError:
 	print("Configured.")
 
 Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
-color_offset = 40
+color_offset = 50
 PID_count = 0
 
 sampling_interval = 0.02
