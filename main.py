@@ -70,7 +70,6 @@ TOTAL_ERROR = 0.0
 MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
 MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 
-start_flag = False
 out_start_zone = False
 start_time = 0
 end_time = 0
@@ -79,6 +78,7 @@ def printCurrentParameters():
 	print("Current parameters: Kp = " + str(pid_controller.Kp) + ", Ki = " + str(pid_controller.Ki), ", Kd = " + str(pid_controller.Kd))
 
 def initialization():
+	start_flag = False
 	while not start_flag:
 		os.system('clear')
 
