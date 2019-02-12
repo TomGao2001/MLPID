@@ -113,21 +113,18 @@ def initialization():
 		printCurrentParameters()
 		time.sleep(sampling_interval)
 
-def start_check():
-	global start_time, out_start_zone
-	os.system('clear')
-	print("waiting...and be patient...")
-	BP.set_motor_power(BP.PORT_C, 7)
-	BP.set_motor_power(BP.PORT_B, 7)		
-	if BP.get_sensor(BP.PORT_4) == 6:
-		start_time = time.time()
-		out_start_zone = True
-
 while (True):
 	initialization()
 	
 	while not out_start_zone:
-		start_check()
+		os.system('clear')
+		print("waiting...and be patient...")
+		BP.set_motor_power(BP.PORT_C, 7)
+		BP.set_motor_power(BP.PORT_B, 7)		
+		if BP.get_sensor(BP.PORT_4) == 6:
+			start_time = time.time()
+			out_start_zone = True
+			break
 	
 	os.system('clear')
 	
