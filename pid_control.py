@@ -2,7 +2,7 @@ from math import sqrt
 
 
 class PID(object):
-	def __init__(self, Kp, Ki, Kd):
+	def __init__(self, Kp, Ki, Kd, iLength):
 		self.p_error = 0.0
 		self.i_error = 0.0
 		self.d_error = 0.0
@@ -13,6 +13,11 @@ class PID(object):
 		self.Ki = Ki
 		self.Kd = Kd
 
+		self.Ki_info_length = iLength
+
+		self.i_info = []
+		self.i_pointer = 0
+
 		self.epochLength_ = 200
 
 		self.counter_ = 0
@@ -21,9 +26,12 @@ class PID(object):
 		self.previousEpochError_ = 0.0
 		self.needsTraining_ = True
 		self.currentEpochError_ = 0.0
-		
 		self.errorThreshold_ = 0.005
 		self.learnRate_ = 0.01
+
+	def initialize_Ki_info(self, length):
+		for i in range(0,length):
+			self.i_info.append(0)
 
 	def updateEpochError(self, cte):
 		self.i_e_fabs_ += abs(cte)
@@ -59,8 +67,16 @@ class PID(object):
 	def UpdateError(self, cte):
 		self.d_error = cte - self.p_error
 		self.p_error = cte
-		self.i_error += cte
+		UpdateKiError(cte)
 		self.updateEpochError(cte)
+
+	def UpdateKiError(self, cte):
+		self.i_error-=self.i_info[self.i_pointer]
+		self.i_info[self.i_pointer] = cte
+		self.i_error+=cte
+		self.i_pointer+=1
+		if i_pointer == self.Ki_info_length:
+			i_pointer = 0
 
 	def TotalError(self):
 		return -self.Kp * self.p_error - self.Ki * self.i_error - self.Kd * self.d_error
