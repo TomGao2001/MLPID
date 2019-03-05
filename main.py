@@ -143,7 +143,7 @@ while (True):
 	steer = pid_controller.TotalError()
 	
 	printCurrentParameters()
-	print("needsTraining" + str(needsTraining))
+	print("needsTraining" + str(pid_controller.needsTraining))
 	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))
 
