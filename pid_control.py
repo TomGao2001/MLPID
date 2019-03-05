@@ -75,8 +75,8 @@ class PID(object):
 		self.i_info[self.i_pointer] = cte
 		self.i_error+=cte
 		self.i_pointer+=1
-		if i_pointer == self.Ki_info_length:
-			i_pointer = 0
+		if self.i_pointer == self.Ki_info_length:
+			self.i_pointer = 0
 
 	def TotalError(self):
 		return -self.Kp * self.p_error - self.Ki * self.i_error - self.Kd * self.d_error
