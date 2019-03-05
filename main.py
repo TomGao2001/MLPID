@@ -78,7 +78,7 @@ start_time = 0
 end_time = 0
 
 def printCurrentParameters():
-	print("Current parameters: Kp = " + str(pid_controller.Kp)[:5] + ", Ki = " + str(pid_controller.Ki)[:5], ", Kd = " + str(pid_controller.Kd)[:5])
+	print("Current parameters: Kp = " + str(pid_controller.Kp)[:10] + "\nKi = " + str(pid_controller.Ki)[:10], "\nKd = " + str(pid_controller.Kd)[:10])
 
 while (True):
 	#initialization()
@@ -143,6 +143,7 @@ while (True):
 	steer = pid_controller.TotalError()
 	
 	printCurrentParameters()
+	print("needsTraining" + str(needsTraining))
 	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))
 
