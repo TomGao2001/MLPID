@@ -55,7 +55,7 @@ PID_count = 0
 
 sampling_interval = 0.02
 Ki_memorizing_length = 3.0
-Ki_info_length = Ki_memorizing_length / sampling_interval
+Ki_info_length = (int) (Ki_memorizing_length / sampling_interval)
 
 base_speed = 15
 MyKp = 0.25
