@@ -57,10 +57,10 @@ sampling_interval = 0.02
 Ki_memorizing_length = 3.0
 Ki_info_length = (int) (Ki_memorizing_length / sampling_interval)
 
-base_speed = 15
-MyKp = 0.25
+base_speed = 30
+MyKp = 0.5
 MyKi = 0
-MyKd = 0
+MyKd = 0.5
 MySpeed = base_speed
 pid_controller = PID(MyKp, MyKi, MyKd, Ki_info_length)
 pid_controller.resetEpochError()
