@@ -67,7 +67,7 @@ class PID(object):
 	def UpdateError(self, cte):
 		self.d_error = cte - self.p_error
 		self.p_error = cte
-		UpdateKiError(cte)
+		self.UpdateKiError(cte)
 		self.updateEpochError(cte)
 
 	def UpdateKiError(self, cte):
