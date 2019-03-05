@@ -144,7 +144,7 @@ while (True):
 	
 	printCurrentParameters()
 	print("needsTraining" + str(pid_controller.needsTraining_))
-	print(self.currentEpochError_)
+	print(pid_controller.currentEpochError_)
 	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))
 
