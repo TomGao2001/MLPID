@@ -81,20 +81,17 @@ int main()
                     ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
                     
                     // Evaluate accumulated CTE every some (200 appears to be a good choice) iterations and adjust parameters accordingly.
-                    if (pid.counter_ % pid.epochLength_ == 0) {
-                        
+                    
+                    if (pid.counter_ % pid.epochLength_ == 0){
                         pid.evaluate();
-                        
-                        if(pid.needsTraining_) {
-                            
-                            pid.backProp();
-                                 
-                        } else {
-                            std::cout << "CTE: " << cte << " Steering Value: " << steer_value << " | rmse: " << sqrt(pid.currentEpochError_/pid.counter_) << " Kp: " << pid.getKp() << " Ki: " << pid.getKi() << " Kd: " << pid.getKd() << std::endl;
-                        }
-                        
+                        if(pid.needsTraining_) pid.backProp(); 
+                        else {std::cout << "CTE: " << cte << " Steering Value: " << steer_value << " | rmse: " << sqrt(pid.currentEpochError_/pid.counter_) << " Kp: " << pid.getKp() << " Ki: " << pid.getKi() << " Kd: " << pid.getKd() << std::endl;}
                         pid.resetEpochError();
                     }
+
+
+
+
                 }
                 
             } else {

@@ -50,7 +50,7 @@ except brickpi3.SensorError:
 	print("Configured.")
 
 Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
-color_offset = 50
+COLOR_OFFSET = 50
 PID_count = 0
 
 sampling_interval = 0.02
@@ -129,18 +129,16 @@ while (True):
 	
 	os.system('clear')
 	
-	error = BP.get_sensor(BP.PORT_1) - color_offset
+	error = BP.get_sensor(BP.PORT_1) - COLOR_OFFSET
 	
-	# Offset to absolute center
-	'''
+	
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
 		if(pid_controller.needsTraining_):
 			pid_controller.backProp()
 		
 		pid_controller.resetEpochError()
-	'''
-
+	
 	pid_controller.UpdateError(error)
 	steer = pid_controller.TotalError()
 	
