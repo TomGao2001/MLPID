@@ -78,7 +78,7 @@ start_time = 0
 end_time = 0
 
 def printCurrentParameters():
-	print("Current parameters: Kp = " + str(pid_controller.Kp)[:10] + "\nKi = " + str(pid_controller.Ki)[:10], "\nKd = " + str(pid_controller.Kd)[:10])
+	print("Current parameters:\n Kp = " + str(pid_controller.Kp)[:10] + "\nKi = " + str(pid_controller.Ki)[:10], "\nKd = " + str(pid_controller.Kd)[:10] + "\n")
 
 while (True):
 	#initialization()
