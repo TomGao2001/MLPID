@@ -54,7 +54,7 @@ COLOR_OFFSET = 50
 PID_count = 0
 
 sampling_interval = 0.02
-Ki_memorizing_length = 3.0
+Ki_memorizing_length = 1.5
 Ki_info_length = (int) (Ki_memorizing_length / sampling_interval)
 
 base_speed = 30
@@ -78,7 +78,7 @@ start_time = 0
 end_time = 0
 
 def printCurrentParameters():
-	print("Current parameters:\n Kp = " + str(pid_controller.Kp)[:10] + "\nKi = " + str(pid_controller.Ki)[:10], "\nKd = " + str(pid_controller.Kd)[:10] + "\n")
+	print("Current parameters:\nKp = " + str(pid_controller.Kp)[:10] + "\nKi = " + str(pid_controller.Ki)[:10], "\nKd = " + str(pid_controller.Kd)[:10] + "\n")
 
 while (True):
 	#initialization()
@@ -146,6 +146,7 @@ while (True):
 	
 	printCurrentParameters()
 	print("needsTraining" + str(pid_controller.needsTraining_))
+	print(pid_controller.epochCumulativeError_)
 	print(pid_controller.currentEpochError_)
 	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))

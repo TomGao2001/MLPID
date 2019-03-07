@@ -44,7 +44,6 @@ class PID(object):
 	def evaluate(self):
 		if self.needsTraining_:
 			self.currentEpochError_ = sqrt(self.epochCumulativeError_ / self.epochLength_)
-			print(self.currentEpochError_)
 			self.needsTraining_ = self.currentEpochError_ > self.errorThreshold_			
 
 	def adjust(self, Kx, dx, dE):
@@ -66,7 +65,7 @@ class PID(object):
 		deltaError = self.previousEpochError_ - self.currentEpochError_
 		self.previousEpochError_ = self.currentEpochError_
 		self.adjust('p', -self.p_error, deltaError)
-		self.adjust('i', -self.i_e_fabs_, deltaError)
+		self.adjust('i', -self.i_error, deltaError)
 		self.adjust('d', -self.d_error, deltaError)
 
 	def UpdateError(self, cte):
