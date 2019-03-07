@@ -130,8 +130,10 @@ while (True):
 	os.system('clear')
 	
 	error = BP.get_sensor(BP.PORT_1) - COLOR_OFFSET
-	
-	
+	error = min(25,error)
+	error = max(-25,error)
+	error = error*2
+
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
 		if(pid_controller.needsTraining_):
