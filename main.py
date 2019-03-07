@@ -163,13 +163,13 @@ while (True):
 		end_time = time.time()
 		print("STOPPED MANUALLY")
 		break
-	
+	'''
 	if BP.get_sensor(BP.PORT_4) == 5 and out_start_zone:
 		BP.reset_all()
 		end_time = time.time()
 		print("STOPPED")
 		break
-
+	'''
 	time.sleep(sampling_interval)
 
 print("TIME ELAPSED: " + str(end_time - start_time)[:5])
