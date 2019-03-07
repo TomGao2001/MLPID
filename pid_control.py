@@ -26,8 +26,8 @@ class PID(object):
 		self.previousEpochError_ = 0.0
 		self.needsTraining_ = True
 		self.currentEpochError_ = 0.0
-		self.errorThreshold_ = 0.01
-		self.learnRate_ = 0.03
+		self.errorThreshold_ = 0.1
+		self.learnRate_ = 0.09
 
 	def initialize_Ki_info(self, length):
 		for i in range(0,length):
