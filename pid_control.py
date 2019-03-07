@@ -18,7 +18,7 @@ class PID(object):
 		self.i_info = []
 		self.i_pointer = 0
 
-		self.epochLength_ = 15
+		self.epochLength_ = 10
 
 		self.counter_ = 0
 
@@ -26,7 +26,7 @@ class PID(object):
 		self.previousEpochError_ = 0.0
 		self.needsTraining_ = True
 		self.currentEpochError_ = 0.0
-		self.errorThreshold_ = 0.1
+		self.errorThreshold_ = 0.01
 		self.learnRate_ = 0.008
 
 	def initialize_Ki_info(self, length):
