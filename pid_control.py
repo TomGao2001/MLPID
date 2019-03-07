@@ -18,7 +18,7 @@ class PID(object):
 		self.i_info = []
 		self.i_pointer = 0
 
-		self.epochLength_ = 200
+		self.epochLength_ = 25
 
 		self.counter_ = 0
 
@@ -51,12 +51,16 @@ class PID(object):
 		if Kx == 'p':
 			partialDKx = self.Kp * dx * dE * self.learnRate_
 			self.Kp -= partialDKx
+			self.Kp = max(0, self.Kp)
 		if Kx == 'i':
 			partialDKx = self.Ki * dx * dE * self.learnRate_
 			self.Ki -= partialDKx
+			#self.Ki = max(0, self.Ki)
+
 		if Kx == 'd':
 			partialDKx = self.Kd * dx * dE * self.learnRate_
 			self.Kd -= partialDKx
+			#self.Kd = max(0, self.Kd)
 
 	def backProp(self):
 		deltaError = self.previousEpochError_ - self.currentEpochError_
