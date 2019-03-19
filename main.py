@@ -80,6 +80,9 @@ end_time = 0
 def printCurrentParameters():
 	print("Current parameters:\nKp = " + str(pid_controller.Kp)[:10] + "\nKi = " + str(pid_controller.Ki)[:10], "\nKd = " + str(pid_controller.Kd)[:10] + "\n")
 
+def printCurrentLearningParameters():
+	print("Current parameters:\nKi_info_length : " + str(pid_controller.Ki_info_length) + "\nLearning rate : " + str(pid_controller.learnRate_)[:10])
+
 while (True):
 	#initialization()
 	while not start_flag:
@@ -115,6 +118,7 @@ while (True):
 			start_flag = True
 		
 		printCurrentParameters()
+		printCurrentLearningParameters()
 		time.sleep(sampling_interval)
 
 	while not out_start_zone:
