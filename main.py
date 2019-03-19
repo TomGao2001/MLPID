@@ -21,9 +21,9 @@ except IOError as ee:
 
 if os.path.isfile('param.txt'):
 	with open("param.txt") as file:
-		MyKp = file.read()
-		MyKi = file.read()
-		MyKd = file.read()
+		MyKp = str(file.read())[:5]
+		MyKi = str(file.read())[:5]
+		MyKd = str(file.read())[:5]
 else:
 	MyKp = 0.5
 	MyKi = 0
