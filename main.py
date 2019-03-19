@@ -19,6 +19,19 @@ try:
 except IOError as ee:
 	print(ee)
 
+try:
+	with open("param.txt") as file:
+		MyKp = file.read()
+		MyKi = file.read()
+		MyKd = file.read()
+
+except FileNotFoundError as e:
+	MyKp = 0.5
+	MyKi = 0
+	MyKd = 0.5
+	print("params not found: default values used")
+
+
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
 # BP.get_sensor returns the sensor value (what we want to display).
@@ -58,9 +71,7 @@ Ki_memorizing_length = 0.22
 Ki_info_length = (int) (Ki_memorizing_length / sampling_interval)
 
 base_speed = 35
-MyKp = 0.5
-MyKi = 0
-MyKd = 0.5
+
 MySpeed = base_speed
 pid_controller = PID(MyKp, MyKi, MyKd, Ki_info_length)
 pid_controller.resetEpochError()
@@ -174,6 +185,11 @@ while (True):
 		break
 	'''
 	time.sleep(sampling_interval)
+
+with open("param.txt","w") as f:
+	f.write(MyKp)
+	f.write(MyKi)
+	f.write(MyKd)
 
 print("TIME ELAPSED: " + str(end_time - start_time)[:5])
 print("PID count: " + str(PID_count))
