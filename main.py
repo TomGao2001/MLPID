@@ -186,9 +186,9 @@ while (True):
 	time.sleep(sampling_interval)
 
 with open("param.txt","w+") as f:
-	f.write(str(MyKp))
-	f.write(str(MyKi))
-	f.write(str(MyKd))
+	f.write(str(MyKp)+"\n")
+	f.write(str(MyKi)+"\n")
+	f.write(str(MyKd)+"\n")
 
 print("TIME ELAPSED: " + str(end_time - start_time)[:5])
 print("PID count: " + str(PID_count))
