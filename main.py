@@ -53,7 +53,7 @@ Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
 COLOR_OFFSET = 50
 PID_count = 0
 
-sampling_interval = 0.02
+sampling_interval = 0.01
 Ki_memorizing_length = 1.5
 Ki_info_length = (int) (Ki_memorizing_length / sampling_interval)
 
