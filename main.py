@@ -124,8 +124,8 @@ while (True):
 	while not out_start_zone:
 		os.system('clear')
 		print("waiting...and be patient...")
-		BP.set_motor_power(BP.PORT_C, 7)
-		BP.set_motor_power(BP.PORT_B, 7)		
+		BP.set_motor_power(BP.PORT_C, 10)
+		BP.set_motor_power(BP.PORT_B, 10)		
 		if BP.get_sensor(BP.PORT_4) == 6:
 			start_time = time.time()
 			out_start_zone = True
