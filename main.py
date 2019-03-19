@@ -19,17 +19,16 @@ try:
 except IOError as ee:
 	print(ee)
 
-try:
+if os.path.isfile('param.txt'):
 	with open("param.txt") as file:
 		MyKp = file.read()
 		MyKi = file.read()
 		MyKd = file.read()
-
-except FileNotFoundError as e:
+else:
 	MyKp = 0.5
 	MyKi = 0
 	MyKd = 0.5
-	print("params not found: default values used")
+	print("param.txt not found, default values used")
 
 
 # BP.get_sensor retrieves a sensor value.
@@ -186,7 +185,7 @@ while (True):
 	'''
 	time.sleep(sampling_interval)
 
-with open("param.txt","w") as f:
+with open("param.txt","w+") as f:
 	f.write(MyKp)
 	f.write(MyKi)
 	f.write(MyKd)
