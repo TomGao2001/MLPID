@@ -26,7 +26,7 @@ if os.path.isfile('param.txt'):
 		MyKd = float(file.readline())
 else:
 	MyKp = 0.5
-	MyKi = 0
+	MyKi = 0.02
 	MyKd = 0.5
 	print("param.txt not found, default values used")
 
