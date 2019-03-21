@@ -53,12 +53,12 @@ class PID(object):
 		if Kx == 'i':
 			partialDKx = self.Ki * dx * dE * self.learnRate_
 			self.Ki -= partialDKx
-			#self.Ki = max(0, self.Ki)
+			self.Ki = max(0, self.Ki)
 
 		if Kx == 'd':
 			partialDKx = self.Kd * dx * dE * self.learnRate_
 			self.Kd -= partialDKx
-			#self.Kd = max(0, self.Kd)
+			self.Kd = max(0, self.Kd)
 
 	def backProp(self):
 		deltaError = self.previousEpochError_ - self.currentEpochError_
