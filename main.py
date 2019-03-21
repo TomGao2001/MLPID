@@ -65,11 +65,11 @@ Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
 COLOR_OFFSET = 50
 PID_count = 0
 
-sampling_interval = 0
+sampling_interval = 0.005
 Ki_memorizing_length = 0.22
 Ki_info_length = (int) (Ki_memorizing_length / (0.012+sampling_interval))
 
-base_speed = 35
+base_speed = 30
 
 MySpeed = base_speed
 pid_controller = PID(MyKp, MyKi, MyKd, Ki_info_length)
