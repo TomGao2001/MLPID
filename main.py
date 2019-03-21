@@ -67,7 +67,7 @@ PID_count = 0
 
 sampling_interval = 0
 Ki_memorizing_length = 0.22
-Ki_info_length = (int) (Ki_memorizing_length / sampling_interval)
+Ki_info_length = (int) (Ki_memorizing_length / (0.012+sampling_interval))
 
 base_speed = 35
 
