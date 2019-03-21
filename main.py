@@ -97,7 +97,7 @@ while (True):
 	#initialization()
 	while not start_flag:
 		os.system('clear')
-
+		print("VOLTAGE:", BP.get_voltage_battery())
 		print("Tuning Mode: " + Mydict[cur_switch])
 
 		if cur_switch == 0:
