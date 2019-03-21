@@ -158,9 +158,8 @@ while (True):
 	steer = pid_controller.TotalError()
 	
 	printCurrentParameters()
-	print("needsTraining" + str(pid_controller.needsTraining_))
-	print(pid_controller.epochCumulativeError_)
-	print(pid_controller.currentEpochError_)
+	print("needsTraining: " + str(pid_controller.needsTraining_))
+	print("Epoch error: " + str(pid_controller.epochCumulativeError_) + " " + str(pid_controller.currentEpochError_))
 	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))
 	print("Current Ki_error: " + str(pid_controller.i_error))
