@@ -66,8 +66,7 @@ COLOR_OFFSET = 50
 PID_count = 0
 
 sampling_interval = 0.005
-Ki_memorizing_length = 0.22
-Ki_info_length = (int) (Ki_memorizing_length / (0.012+sampling_interval))
+Ki_info_length = 500
 
 base_speed = 30
 
