@@ -40,12 +40,12 @@ class PID(object):
 		self.epochCumulativeError_ += (cte*cte)	
 
 	def updateSpeedCoeff(self):
-		if self.currentEpochError_ > 0.5:
-			self.speed_coefficient = 0.5
+		if self.currentEpochError_ > 0.29:
+			self.speed_coefficient = 0.1
 		elif self.currentEpochError_ < 0.1:
 			self.speed_coefficient = 1.0
 		else:
-			self.speed_coefficient = -1.25*self.currentEpochError_ + 1.125
+			self.speed_coefficient = -4.5*self.currentEpochError_ + 1.45
 
 	def resetEpochError(self):
 		self.i_e_fabs_ = 0.0

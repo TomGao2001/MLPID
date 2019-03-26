@@ -162,7 +162,7 @@ while (True):
 	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))
 	print("Current Ki_error: " + str(pid_controller.i_error))
-
+	print("Current Speed Coefficient: " + str(pid_controller.speed_coefficient))
 	BP.set_motor_power(BP.PORT_C, pid_controller.speed_coefficient*min(100,max(0, MySpeed + steer)))
 	BP.set_motor_power(BP.PORT_B, pid_controller.speed_coefficient*min(100,max(0, MySpeed - steer)))
 	PID_count += 1
