@@ -167,7 +167,7 @@ while (True):
 	BP.set_motor_power(BP.PORT_B, pid_controller.speed_coefficient*min(100,max(0, MySpeed - steer)))
 	PID_count += 1
 
-	TOTAL_ERROR += abs(error) * sampling_interval
+	TOTAL_ERROR += abs(error) * (0.01+sampling_interval)
 
 	if BP.get_sensor(BP.PORT_2):
 		BP.reset_all()

@@ -45,7 +45,7 @@ class PID(object):
 		elif self.currentEpochError_ < 0.1:
 			self.speed_coefficient = 1.0
 		else:
-			self.speed_coefficient = -2.5*self.currentEpochError_ + 1.25
+			self.speed_coefficient = -1.25*self.currentEpochError_ + 1.125
 
 	def resetEpochError(self):
 		self.i_e_fabs_ = 0.0
