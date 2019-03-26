@@ -150,7 +150,6 @@ while (True):
 		pid_controller.evaluate()
 		if(pid_controller.needsTraining_):
 			pid_controller.backProp()
-		
 		pid_controller.resetEpochError()
 	
 	pid_controller.UpdateError(error)
