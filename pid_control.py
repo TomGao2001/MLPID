@@ -41,7 +41,7 @@ class PID(object):
 
 	def updateSpeedCoeff(self):
 		if self.currentEpochError_ > 0.29:
-			self.speed_coefficient = 0.1
+			self.speed_coefficient = 0.5
 		elif self.currentEpochError_ < 0.1:
 			self.speed_coefficient = 1.0
 		else:
