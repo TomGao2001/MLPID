@@ -53,7 +53,7 @@ class PID(object):
 
 	def evaluate(self):
 		self.currentEpochError_ = sqrt(self.epochCumulativeError_ / self.epochLength_)/100
-		self.updateSpeedCoeff()
+		#self.updateSpeedCoeff()
 		self.needsTraining_ = self.currentEpochError_ > self.errorThreshold_			
 
 	def adjust(self, Kx, dx, dE):
