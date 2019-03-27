@@ -65,10 +65,10 @@ Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
 COLOR_OFFSET = 50
 PID_count = 0
 
-sampling_interval = 0.005
+sampling_interval = 0
 Ki_info_length = 500
 
-base_speed = 30
+base_speed = 25
 
 MySpeed = base_speed
 pid_controller = PID(MyKp, MyKi, MyKd, Ki_info_length)
@@ -150,7 +150,6 @@ while (True):
 		pid_controller.evaluate()
 		if(pid_controller.needsTraining_):
 			pid_controller.backProp()
-		
 		pid_controller.resetEpochError()
 	
 	pid_controller.UpdateError(error)
@@ -162,12 +161,12 @@ while (True):
 	print("Current error: " + str(error))
 	print("Current steer: " + str(steer))
 	print("Current Ki_error: " + str(pid_controller.i_error))
-
-	BP.set_motor_power(BP.PORT_C, min(100,max(0, MySpeed + steer)))
-	BP.set_motor_power(BP.PORT_B, min(100,max(0, MySpeed - steer)))
+	print("Current Speed Coefficient: " + str(pid_controller.speed_coefficient))
+	BP.set_motor_power(BP.PORT_C, pid_controller.speed_coefficient*min(100,max(0, MySpeed + steer)))
+	BP.set_motor_power(BP.PORT_B, pid_controller.speed_coefficient*min(100,max(0, MySpeed - steer)))
 	PID_count += 1
 
-	TOTAL_ERROR += abs(error) * sampling_interval
+	TOTAL_ERROR += abs(error) * (0.01+sampling_interval)
 
 	if BP.get_sensor(BP.PORT_2):
 		BP.reset_all()

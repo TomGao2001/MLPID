@@ -22,6 +22,8 @@ class PID(object):
 
 		self.counter_ = 0
 
+		self.speed_coefficient = 1.0
+
 		self.epochCumulativeError_ = 0.0
 		self.previousEpochError_ = 0.0
 		self.needsTraining_ = True
@@ -37,12 +39,21 @@ class PID(object):
 		self.i_e_fabs_ += abs(cte)
 		self.epochCumulativeError_ += (cte*cte)	
 
+	def updateSpeedCoeff(self):
+		if self.currentEpochError_ > 0.29:
+			self.speed_coefficient = 0.5
+		elif self.currentEpochError_ < 0.1:
+			self.speed_coefficient = 1.0
+		else:
+			self.speed_coefficient = -1.25*self.currentEpochError_ + 1.125
+
 	def resetEpochError(self):
 		self.i_e_fabs_ = 0.0
 		self.epochCumulativeError_ = 0.0
 
 	def evaluate(self):
 		self.currentEpochError_ = sqrt(self.epochCumulativeError_ / self.epochLength_)/100
+		#self.updateSpeedCoeff()
 		self.needsTraining_ = self.currentEpochError_ > self.errorThreshold_			
 
 	def adjust(self, Kx, dx, dE):
