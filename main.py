@@ -19,7 +19,8 @@ try:
 except IOError as ee:
 	print(ee)
 
-if os.path.isfile('param.txt'):
+ans = raw_input("Use data from last run? (y/n)")
+if ans == "y" and os.path.isfile('param.txt'):
 	with open("param.txt") as file:
 		MyKp = float(file.readline())
 		MyKi = float(file.readline())
@@ -28,7 +29,7 @@ else:
 	MyKp = 0.5
 	MyKi = 0.02
 	MyKd = 0.5
-	print("param.txt not found, default values used")
+	print("Default values used")
 
 
 # BP.get_sensor retrieves a sensor value.
