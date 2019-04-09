@@ -27,7 +27,7 @@ if ans == "y" and os.path.isfile('param.txt'):
 		MyKd = float(file.readline())
 else:
 	MyKp = 0.6
-	MyKi = 0.5#0.04
+	MyKi = 0.1#0.04
 	MyKd = 0.7
 	print("Default values used")
 
@@ -69,7 +69,7 @@ PID_count = 0
 sampling_interval = 0
 Ki_info_length = 500
 
-base_speed = 20#25
+base_speed = 25
 
 MySpeed = base_speed
 pid_controller = PID(MyKp, MyKi, MyKd, Ki_info_length)
@@ -174,13 +174,13 @@ while (True):
 		end_time = time.time()
 		print("STOPPED MANUALLY")
 		break
-	'''
+
 	if BP.get_sensor(BP.PORT_4) == 5 and out_start_zone:
 		BP.reset_all()
 		end_time = time.time()
 		print("STOPPED")
 		break
-	'''
+
 	time.sleep(sampling_interval)
 
 with open("param.txt","w+") as f:
