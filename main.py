@@ -66,7 +66,7 @@ Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
 COLOR_OFFSET = 50
 PID_count = 0
 
-sampling_interval = 0.01#0
+sampling_interval = 0
 Ki_info_length = 100#500
 
 base_speed = 25
