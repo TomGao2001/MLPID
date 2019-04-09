@@ -69,7 +69,7 @@ PID_count = 0
 sampling_interval = 0
 Ki_info_length = 500
 
-base_speed = 25
+base_speed = 20#25
 
 MySpeed = base_speed
 pid_controller = PID(MyKp, MyKi, MyKd, Ki_info_length)
