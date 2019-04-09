@@ -27,7 +27,7 @@ if ans == "y" and os.path.isfile('param.txt'):
 		MyKd = float(file.readline())
 else:
 	MyKp = 0.6
-	MyKi = 0.0005#0.04
+	MyKi = 0.04
 	MyKd = 0.7
 	print("Default values used")
 
@@ -66,8 +66,8 @@ Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
 COLOR_OFFSET = 50
 PID_count = 0
 
-sampling_interval = 0.05#0
-Ki_info_length = 50#500
+sampling_interval = 0.01#0
+Ki_info_length = 100#500
 
 base_speed = 25
 
