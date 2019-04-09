@@ -27,7 +27,7 @@ if ans == "y" and os.path.isfile('param.txt'):
 		MyKd = float(file.readline())
 else:
 	MyKp = 0.4#0.6
-	MyKi = 0.2#0.04
+	MyKi = 0.04
 	MyKd = 0.7
 	print("Default values used")
 
@@ -133,7 +133,7 @@ while (True):
 
 	while not out_start_zone:
 		os.system('clear')
-		print("waiting...and be patient...")
+		print("waiting...")
 		BP.set_motor_power(BP.PORT_C, 10)
 		BP.set_motor_power(BP.PORT_B, 10)		
 		if BP.get_sensor(BP.PORT_4) == 6:
@@ -161,7 +161,8 @@ while (True):
 	print("Epoch error: " + str(pid_controller.epochCumulativeError_) + " " + str(pid_controller.currentEpochError_))
 	print("Current cte: " + str(error))
 	print("Current steer: " + str(steer))
-	print("Current Ki_error: " + str(pid_controller.i_error))
+	print("Current i_error: " + str(pid_controller.i_error))
+	print("Current i_e_fabs: "+ str(pid_controller.i_e_fabs))
 	print("Current Speed Coefficient: " + str(pid_controller.speed_coefficient))
 	BP.set_motor_power(BP.PORT_C, pid_controller.speed_coefficient*min(100,max(0, MySpeed + steer)))
 	BP.set_motor_power(BP.PORT_B, pid_controller.speed_coefficient*min(100,max(0, MySpeed - steer)))
