@@ -48,7 +48,6 @@ class PID(object):
 			self.speed_coefficient = -1.25*self.currentEpochError_ + 1.125
 
 	def resetEpochError(self):
-		self.i_e_fabs_ = 0.0
 		self.epochCumulativeError_ = 0.0
 
 	def evaluate(self):
@@ -65,7 +64,6 @@ class PID(object):
 			partialDKx = self.Ki * dx * dE * self.learnRate_
 			self.Ki -= partialDKx
 			self.Ki = max(0, self.Ki)
-
 		if Kx == 'd':
 			partialDKx = self.Kd * dx * dE * self.learnRate_
 			self.Kd -= partialDKx
@@ -86,8 +84,10 @@ class PID(object):
 
 	def UpdateKiError(self, cte):
 		self.i_error-=self.i_info[self.i_pointer]
+		self.i_e_fabs-=abs(self.i_info[self.i_pointer])
 		self.i_info[self.i_pointer] = cte
 		self.i_error+=cte
+		self.i_e_fabs+=abs(cte)
 		self.i_pointer+=1
 		if self.i_pointer == self.Ki_info_length:
 			self.i_pointer = 0
