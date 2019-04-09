@@ -72,13 +72,13 @@ class PID(object):
 		deltaError = self.previousEpochError_ - self.currentEpochError_
 		self.previousEpochError_ = self.currentEpochError_
 		self.adjust('p', -self.p_error, deltaError)
-		self.adjust('i', -self.i_error, deltaError)#i_e_fabs
+		self.adjust('i', -self.i_e_fabs, deltaError)
 		self.adjust('d', -self.d_error, deltaError)
 
 	def UpdateError(self, cte):
 		self.d_error = cte - self.p_error
 		self.p_error = cte
-		self.UpdateKiError(cte/100)#here
+		self.UpdateKiError(cte)#here
 		self.updateEpochError(cte)
 
 	def UpdateKiError(self, cte):

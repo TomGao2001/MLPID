@@ -67,7 +67,7 @@ COLOR_OFFSET = 50
 PID_count = 0
 
 sampling_interval = 0
-Ki_info_length = 500
+Ki_info_length = 50#500
 
 base_speed = 25
 
@@ -144,8 +144,8 @@ while (True):
 	os.system('clear')
 	
 	error = BP.get_sensor(BP.PORT_1) - COLOR_OFFSET
-	error = min(30,error)
-	error = max(-30,error)
+	error = min(40,error)
+	error = max(-40,error)
 
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
