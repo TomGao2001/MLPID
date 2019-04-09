@@ -27,7 +27,7 @@ if ans == "y" and os.path.isfile('param.txt'):
 		MyKd = float(file.readline())
 else:
 	MyKp = 0.6
-	MyKi = 0.005#0.04
+	MyKi = 0.0005#0.04
 	MyKd = 0.7
 	print("Default values used")
 
