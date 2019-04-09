@@ -159,7 +159,7 @@ while (True):
 	printCurrentParameters()
 	print("needsTraining: " + str(pid_controller.needsTraining_))
 	print("Epoch error: " + str(pid_controller.epochCumulativeError_) + " " + str(pid_controller.currentEpochError_))
-	print("Current error: " + str(error))
+	print("Current cte: " + str(error))
 	print("Current steer: " + str(steer))
 	print("Current Ki_error: " + str(pid_controller.i_error))
 	print("Current Speed Coefficient: " + str(pid_controller.speed_coefficient))
