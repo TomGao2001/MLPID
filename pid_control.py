@@ -36,7 +36,6 @@ class PID(object):
 			self.i_info.append(0)
 
 	def updateEpochError(self, cte):
-		self.i_e_fabs_ += abs(cte)
 		self.epochCumulativeError_ += (cte*cte)	
 
 	def updateSpeedCoeff(self):
