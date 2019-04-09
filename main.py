@@ -177,11 +177,11 @@ while (True):
 		print("STOPPED MANUALLY")
 		break
 
-	if BP.get_sensor(BP.PORT_4) == 5 and out_start_zone:
+	'''if BP.get_sensor(BP.PORT_4) == 5 and out_start_zone:
 		BP.reset_all()
 		end_time = time.time()
 		print("STOPPED")
-		break
+		break'''
 
 	time.sleep(sampling_interval)
 
