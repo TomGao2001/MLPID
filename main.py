@@ -1,3 +1,4 @@
+from __future__ import print_function # use python 3 syntax but make it compatible with python 2
 from __future__ import division       #                           ''
 from pid_control import PID
 import os
@@ -25,9 +26,9 @@ if ans == "y" and os.path.isfile('param.txt'):
 		MyKi = float(file.readline())
 		MyKd = float(file.readline())
 else:
-	MyKp = 0.6
+	MyKp = 0.5
 	MyKi = 0.1#0.04
-	MyKd = 0.7
+	MyKd = 0.5
 	print("Default values used")
 
 
