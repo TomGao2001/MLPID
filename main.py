@@ -1,4 +1,3 @@
-from __future__ import print_function # use python 3 syntax but make it compatible with python 2
 from __future__ import division       #                           ''
 from pid_control import PID
 import os
@@ -69,7 +68,7 @@ PID_count = 0
 sampling_interval = 0
 Ki_info_length = 100#500
 
-base_speed = 25
+base_speed = 40
 
 MySpeed = base_speed
 pid_controller = PID(MyKp, MyKi, MyKd, Ki_info_length)
