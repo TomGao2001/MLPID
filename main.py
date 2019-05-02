@@ -1,6 +1,8 @@
 from __future__ import print_function # use python 3 syntax but make it compatible with python 2
 from __future__ import division       #                           ''
 from pid_control import PID
+import matplotlib
+import matplotlib.pyplot as plt
 import os
 import time     # import the time library for the sleep function
 import brickpi3  # import the BrickPi3 drivers
@@ -87,6 +89,10 @@ out_start_zone = False
 start_time = 0
 end_time = 0
 
+Kp_history = []
+Ki_history = []
+Kd_history = []
+T = []
 def printCurrentParameters():
 	print("Current parameters:\nKp = " + str(pid_controller.Kp)[:10] + "\nKi = " + str(pid_controller.Ki)[:10], "\nKd = " + str(pid_controller.Kd)[:10] + "\n")
 
@@ -184,6 +190,10 @@ while (True):
 		print("STOPPED")
 		break
 	'''
+	T.append(PID_count)
+	Kp_history.append(pid_controller.Kp)
+	Ki_history.append(pid_controller.Ki)
+	Kd_history.append(pid_controller.Kd)
 
 	time.sleep(sampling_interval)
 
@@ -196,3 +206,17 @@ print("TIME ELAPSED: " + str(end_time - start_time)[:5])
 print("PID count: " + str(PID_count))
 print("SPEED: " + str(MySpeed)[:5])
 print("TOTAL ERROR: " + str(TOTAL_ERROR)[:10])
+
+fig, (ax0, ax1,ax2) = plt.subplots(ncols=3, constrained_layout=True)
+
+ax0.plot(T,Kp_history)
+ax0.set(xlabel='PID count', ylabel='Kp')
+ax0.grid()
+ax1.plot(T,Ki_history)
+ax1.set(xlabel='PID count', ylabel='Ki')
+ax1.grid()
+ax2.plot(T,Kd_history)
+ax2.set(xlabel='PID count', ylabel='Kd')
+ax2.grid()
+fig.savefig("pid.png")
+plt.show()
