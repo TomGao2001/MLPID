@@ -20,7 +20,7 @@ try:
 	#BP.offset_motor_encoder(BP.PORT_D, BP.get_motor_encoder(BP.PORT_D))
 except IOError as ee:
 	print(ee)
-
+'''
 ans = raw_input("Use data from last run? (y/n)")
 if ans == "y" and os.path.isfile('param.txt'):
 	with open("param.txt") as file:
@@ -32,7 +32,10 @@ else:
 	MyKi = 0.1#0.04
 	MyKd = 2
 	print("Default values used")
-
+'''	
+MyKp = 0.8555
+MyKi = 0.1#0.04
+MyKd = 2
 
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
@@ -69,7 +72,8 @@ COLOR_OFFSET = 50
 PID_count = 0
 
 sampling_interval = 0
-Ki_info_length = 100#500
+#500? tbd it actually depends.
+Ki_info_length = 100
 
 base_speed = 40
 
