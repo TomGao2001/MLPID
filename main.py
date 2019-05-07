@@ -10,14 +10,14 @@ import brickpi3  # import the BrickPi3 drivers
 BP = brickpi3.BrickPi3()
 BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.EV3_COLOR_REFLECTED)
 BP.set_sensor_type(BP.PORT_2, BP.SENSOR_TYPE.TOUCH)
-BP.set_sensor_type(BP.PORT_3, BP.SENSOR_TYPE.TOUCH)
+#BP.set_sensor_type(BP.PORT_3, BP.SENSOR_TYPE.TOUCH)
 BP.set_sensor_type(BP.PORT_4, BP.SENSOR_TYPE.EV3_COLOR_COLOR)
 
 try:
-	BP.offset_motor_encoder(BP.PORT_A, BP.get_motor_encoder(BP.PORT_A))
+	#BP.offset_motor_encoder(BP.PORT_A, BP.get_motor_encoder(BP.PORT_A))
 	BP.offset_motor_encoder(BP.PORT_B, BP.get_motor_encoder(BP.PORT_B))  # Right
 	BP.offset_motor_encoder(BP.PORT_C, BP.get_motor_encoder(BP.PORT_C))  # Left
-	BP.offset_motor_encoder(BP.PORT_D, BP.get_motor_encoder(BP.PORT_D))
+	#BP.offset_motor_encoder(BP.PORT_D, BP.get_motor_encoder(BP.PORT_D))
 except IOError as ee:
 	print(ee)
 
@@ -78,8 +78,8 @@ pid_controller = PID(MyKp, MyKi, MyKd, Ki_info_length)
 pid_controller.resetEpochError()
 pid_controller.initialize_Ki_info(Ki_info_length)
 
-MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
-MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
+#MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
+#MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 start_flag = False
 cur_switch = 0
 
@@ -105,7 +105,7 @@ while (True):
 		os.system('clear')
 		print("VOLTAGE:", BP.get_voltage_battery())
 		print("Tuning Mode: " + Mydict[cur_switch])
-
+		'''
 		if cur_switch == 0:
 			pid_controller.Kp = MyKp + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 1000
 		elif cur_switch == 1:
@@ -127,7 +127,7 @@ while (True):
 			elif cur_switch == 2:
 				MyKd = pid_controller.Kd
 			cur_switch = (cur_switch + 1) % 3
-
+		'''
 		if BP.get_sensor(BP.PORT_2):
 			while BP.get_sensor(BP.PORT_2):
 				pass

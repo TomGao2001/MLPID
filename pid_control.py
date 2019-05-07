@@ -1,6 +1,5 @@
 from math import sqrt
 
-
 class PID(object):
 	def __init__(self, Kp, Ki, Kd, iLength):
 		self.p_error = 0.0
