@@ -215,22 +215,22 @@ print("PID count: " + str(PID_count))
 print("SPEED: " + str(MySpeed)[:5])
 print("TOTAL ERROR: " + str(TOTAL_ERROR)[:10])
 
-matplotlib.use('Agg')
-
 fig, (ax0, ax1,ax2,ax3) = plt.subplots(nrows = 3, ncols=2, constrained_layout=True)
 
 ax0.plot(T,Kp_history)
 ax0.set(xlabel='count', ylabel='Kp')
 ax0.grid()
+
 ax1.plot(T,Ki_history)
 ax1.set(xlabel='count', ylabel='Ki')
 ax1.grid()
+
 ax2.plot(T,Kd_history)
 ax2.set(xlabel='count', ylabel='Kd')
 ax2.grid()
 
-ax3.set(xlabel='count', ylabel='error')
 ax3.plot(T,Error_history)
+ax3.set(xlabel='count', ylabel='error')
 ax3.grid()
 
 fig.savefig("pid.png")
