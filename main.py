@@ -215,7 +215,7 @@ print("PID count: " + str(PID_count))
 print("SPEED: " + str(MySpeed)[:5])
 print("TOTAL ERROR: " + str(TOTAL_ERROR)[:10])
 
-fig, (ax0, ax1,ax2,ax3) = plt.subplots(nrows = 2, ncols=2, constrained_layout=True)
+fig, (ax0, ax1,ax2,ax3) = plt.subplots(nrows = 4, ncols=1, constrained_layout=True)
 
 ax0.plot(T,Kp_history)
 ax0.set(xlabel='count', ylabel='Kp')
