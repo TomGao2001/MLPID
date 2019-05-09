@@ -96,7 +96,9 @@ end_time = 0
 Kp_history = []
 Ki_history = []
 Kd_history = []
+Error_history = []
 T = []
+
 def printCurrentParameters():
 	print("Current parameters:\nKp = " + str(pid_controller.Kp)[:10] + "\nKi = " + str(pid_controller.Ki)[:10], "\nKd = " + str(pid_controller.Kd)[:10] + "\n")
 
@@ -156,7 +158,7 @@ while (True):
 	error = BP.get_sensor(BP.PORT_1) - COLOR_OFFSET
 	error = min(40,error)
 	error = max(-40,error)
-
+	error = (1 if error > 0 else -1)*error*error/10
 
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
@@ -199,6 +201,7 @@ while (True):
 	Kp_history.append(pid_controller.Kp)
 	Ki_history.append(pid_controller.Ki)
 	Kd_history.append(pid_controller.Kd)
+	Error_history.append(error)
 
 	time.sleep(sampling_interval)
 
@@ -214,17 +217,21 @@ print("TOTAL ERROR: " + str(TOTAL_ERROR)[:10])
 
 matplotlib.use('Agg')
 
-fig, (ax0, ax1,ax2) = plt.subplots(nrows = 3, ncols=1, constrained_layout=True)
+fig, (ax0, ax1,ax2,ax3) = plt.subplots(nrows = 3, ncols=2, constrained_layout=True)
 
 ax0.plot(T,Kp_history)
-ax0.set(xlabel='PID count', ylabel='Kp')
+ax0.set(xlabel='count', ylabel='Kp')
 ax0.grid()
 ax1.plot(T,Ki_history)
-ax1.set(xlabel='PID count', ylabel='Ki')
+ax1.set(xlabel='count', ylabel='Ki')
 ax1.grid()
 ax2.plot(T,Kd_history)
-ax2.set(xlabel='PID count', ylabel='Kd')
+ax2.set(xlabel='count', ylabel='Kd')
 ax2.grid()
+
+ax3.set(xlabel='count', ylabel='error')
+ax3.plot(T,Error_history)
+ax3.grid()
 
 fig.savefig("pid.png")
 plt.show()
