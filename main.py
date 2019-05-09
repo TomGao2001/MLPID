@@ -158,6 +158,8 @@ while (True):
 	error = BP.get_sensor(BP.PORT_1) - COLOR_OFFSET
 	error = min(40,error)
 	error = max(-40,error)
+	Error_history.append(error)
+
 	if error < 10 and error > -10:
 		error = (1 if error > 0 else -1)*error*error/10
 
@@ -202,7 +204,6 @@ while (True):
 	Kp_history.append(pid_controller.Kp)
 	Ki_history.append(pid_controller.Ki)
 	Kd_history.append(pid_controller.Kd)
-	Error_history.append(error)
 
 	time.sleep(sampling_interval)
 
