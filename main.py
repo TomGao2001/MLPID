@@ -10,17 +10,17 @@ import brickpi3  # import the BrickPi3 drivers
 BP = brickpi3.BrickPi3()
 BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.EV3_COLOR_REFLECTED)
 BP.set_sensor_type(BP.PORT_2, BP.SENSOR_TYPE.TOUCH)
-BP.set_sensor_type(BP.PORT_3, BP.SENSOR_TYPE.TOUCH)
+#BP.set_sensor_type(BP.PORT_3, BP.SENSOR_TYPE.TOUCH)
 BP.set_sensor_type(BP.PORT_4, BP.SENSOR_TYPE.EV3_COLOR_COLOR)
 
 try:
-	BP.offset_motor_encoder(BP.PORT_A, BP.get_motor_encoder(BP.PORT_A))
+	#BP.offset_motor_encoder(BP.PORT_A, BP.get_motor_encoder(BP.PORT_A))
 	BP.offset_motor_encoder(BP.PORT_B, BP.get_motor_encoder(BP.PORT_B))  # Right
 	BP.offset_motor_encoder(BP.PORT_C, BP.get_motor_encoder(BP.PORT_C))  # Left
-	BP.offset_motor_encoder(BP.PORT_D, BP.get_motor_encoder(BP.PORT_D))
+	#BP.offset_motor_encoder(BP.PORT_D, BP.get_motor_encoder(BP.PORT_D))
 except IOError as ee:
 	print(ee)
-
+'''
 ans = raw_input("Use data from last run? (y/n)")
 if ans == "y" and os.path.isfile('param.txt'):
 	with open("param.txt") as file:
@@ -32,7 +32,10 @@ else:
 	MyKi = 0.1#0.04
 	MyKd = 2
 	print("Default values used")
-
+'''	
+MyKp = 0.8555
+MyKi = 0.1#0.04
+MyKd = 2
 
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
@@ -69,7 +72,8 @@ COLOR_OFFSET = 50
 PID_count = 0
 
 sampling_interval = 0
-Ki_info_length = 100#500
+#500? tbd it actually depends.
+Ki_info_length = 100
 
 base_speed = 40
 
@@ -78,8 +82,8 @@ pid_controller = PID(MyKp, MyKi, MyKd, Ki_info_length)
 pid_controller.resetEpochError()
 pid_controller.initialize_Ki_info(Ki_info_length)
 
-MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
-MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
+#MotorA_Offset = BP.get_motor_encoder(BP.PORT_A)
+#MotorD_Offset = BP.get_motor_encoder(BP.PORT_D)
 start_flag = False
 cur_switch = 0
 
@@ -92,7 +96,9 @@ end_time = 0
 Kp_history = []
 Ki_history = []
 Kd_history = []
+Error_history = []
 T = []
+
 def printCurrentParameters():
 	print("Current parameters:\nKp = " + str(pid_controller.Kp)[:10] + "\nKi = " + str(pid_controller.Ki)[:10], "\nKd = " + str(pid_controller.Kd)[:10] + "\n")
 
@@ -105,7 +111,7 @@ while (True):
 		os.system('clear')
 		print("VOLTAGE:", BP.get_voltage_battery())
 		print("Tuning Mode: " + Mydict[cur_switch])
-
+		'''
 		if cur_switch == 0:
 			pid_controller.Kp = MyKp + (BP.get_motor_encoder(BP.PORT_A) - MotorA_Offset) / 1000
 		elif cur_switch == 1:
@@ -127,7 +133,7 @@ while (True):
 			elif cur_switch == 2:
 				MyKd = pid_controller.Kd
 			cur_switch = (cur_switch + 1) % 3
-
+		'''
 		if BP.get_sensor(BP.PORT_2):
 			while BP.get_sensor(BP.PORT_2):
 				pass
@@ -152,7 +158,9 @@ while (True):
 	error = BP.get_sensor(BP.PORT_1) - COLOR_OFFSET
 	error = min(40,error)
 	error = max(-40,error)
-
+	temperr = error
+	if error < 10 and error > -10:
+		error = (1 if error > 0 else -1)*error*error/10
 
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
@@ -171,6 +179,7 @@ while (True):
 	print("Current i_error: " + str(pid_controller.i_error))
 	print("Current i_e_fabs: "+ str(pid_controller.i_e_fabs))
 	print("Current Speed Coefficient: " + str(pid_controller.speed_coefficient))
+	print("Current color sensor value: " + str(BP.get_sensor(BP.PORT_4)))
 	BP.set_motor_power(BP.PORT_C, pid_controller.speed_coefficient*min(100,max(0, MySpeed - steer)))
 	BP.set_motor_power(BP.PORT_B, pid_controller.speed_coefficient*min(100,max(0, MySpeed + steer)))
 	PID_count += 1
@@ -194,6 +203,7 @@ while (True):
 	Kp_history.append(pid_controller.Kp)
 	Ki_history.append(pid_controller.Ki)
 	Kd_history.append(pid_controller.Kd)
+	Error_history.append(temperr)
 
 	time.sleep(sampling_interval)
 
@@ -207,16 +217,23 @@ print("PID count: " + str(PID_count))
 print("SPEED: " + str(MySpeed)[:5])
 print("TOTAL ERROR: " + str(TOTAL_ERROR)[:10])
 
-fig, (ax0, ax1,ax2) = plt.subplots(ncols=3, constrained_layout=True)
+fig, (ax0, ax1,ax2,ax3) = plt.subplots(nrows = 4, ncols=1, constrained_layout=True)
 
 ax0.plot(T,Kp_history)
-ax0.set(xlabel='PID count', ylabel='Kp')
+ax0.set(xlabel='count', ylabel='Kp')
 ax0.grid()
+
 ax1.plot(T,Ki_history)
-ax1.set(xlabel='PID count', ylabel='Ki')
+ax1.set(xlabel='count', ylabel='Ki')
 ax1.grid()
+
 ax2.plot(T,Kd_history)
-ax2.set(xlabel='PID count', ylabel='Kd')
+ax2.set(xlabel='count', ylabel='Kd')
 ax2.grid()
+
+ax3.plot(T,Error_history)
+ax3.set(xlabel='count', ylabel='error')
+ax3.grid()
+
 fig.savefig("pid.png")
 plt.show()

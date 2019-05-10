@@ -1,6 +1,5 @@
 from math import sqrt
 
-
 class PID(object):
 	def __init__(self, Kp, Ki, Kd, iLength):
 		self.p_error = 0.0
@@ -29,7 +28,7 @@ class PID(object):
 		self.needsTraining_ = True
 		self.currentEpochError_ = 0.0
 		self.errorThreshold_ = 0.1
-		self.learnRate_ = 0.025
+		self.learnRate_ = 0.005
 
 	def initialize_Ki_info(self, length):
 		for i in range(0,length):
