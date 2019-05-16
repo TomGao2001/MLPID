@@ -30,7 +30,6 @@ class PID(object):
 		self.errorThreshold_ = 0.1
 		self.learnRate_ = 0.005
 
-		self.PID_count = 0
 	def initialize_Ki_info(self, length):
 		for i in range(0,length):
 			self.i_info.append(0)
@@ -39,8 +38,13 @@ class PID(object):
 		self.epochCumulativeError_ += (cte*cte)	
 
 	def updateSpeedCoeff(self):
+<<<<<<< HEAD
 		if self.PID_count > 500 and abs(self.i_error) < 600:
 			self.speed_coefficient = 1.3
+=======
+		if abs(self.i_error) < 600:
+			self.speed_coefficient = 1.5
+>>>>>>> parent of 0c172d5... move pid_count to pidcontrol.py
 		else:
 			self.speed_coefficient = 1
 

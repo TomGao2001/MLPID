@@ -69,6 +69,7 @@ except brickpi3.SensorError:
 
 Mydict = {0:"Kp", 1:"Ki", 2:"Kd"}
 COLOR_OFFSET = 50
+PID_count = 0
 
 sampling_interval = 0
 #500? tbd it actually depends.
@@ -161,7 +162,7 @@ while (True):
 	if error < 10 and error > -10:
 		error = (1 if error > 0 else -1)*error*error/10
 
-	if pid_controller.PID_count % pid_controller.epochLength_ == 0:
+	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
 		#if(pid_controller.needsTraining_):
 			#pid_controller.backProp()
@@ -181,7 +182,7 @@ while (True):
 	print("Current color sensor value: " + str(BP.get_sensor(BP.PORT_4)))
 	BP.set_motor_power(BP.PORT_C, pid_controller.speed_coefficient*min(100,max(0, MySpeed - steer)))
 	BP.set_motor_power(BP.PORT_B, pid_controller.speed_coefficient*min(100,max(0, MySpeed + steer)))
-	pid_controller.PID_count += 1
+	PID_count += 1
 
 	TOTAL_ERROR += abs(error) * (0.01+sampling_interval)
 
@@ -198,7 +199,7 @@ while (True):
 		print("STOPPED")
 		break
 	'''
-	T.append(pid_controller.PID_count)
+	T.append(PID_count)
 	Kp_history.append(pid_controller.Kp)
 	Ki_history.append(pid_controller.Ki)
 	Kd_history.append(pid_controller.Kd)
@@ -212,7 +213,7 @@ with open("param.txt","w+") as f:
 	f.write(str(pid_controller.Kd)+"\n")
 
 print("TIME ELAPSED: " + str(end_time - start_time)[:5])
-print("PID count: " + str(pid_controller.PID_count))
+print("PID count: " + str(PID_count))
 print("SPEED: " + str(MySpeed)[:5])
 print("TOTAL ERROR: " + str(TOTAL_ERROR)[:10])
 
