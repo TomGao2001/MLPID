@@ -168,7 +168,7 @@ while (True):
 			#pid_controller.backProp()
 		pid_controller.resetEpochError()
 	
-	pid_controller.UpdateError(error)
+	pid_controller.UpdateError(error, PID_count)
 	steer = pid_controller.TotalError()
 	
 	printCurrentParameters()

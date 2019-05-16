@@ -37,14 +37,9 @@ class PID(object):
 	def updateEpochError(self, cte):
 		self.epochCumulativeError_ += (cte*cte)	
 
-	def updateSpeedCoeff(self):
-<<<<<<< HEAD
-		if self.PID_count > 500 and abs(self.i_error) < 600:
+	def updateSpeedCoeff(self, PID_count):
+		if PID_count > 500 and abs(self.i_error) < 600:
 			self.speed_coefficient = 1.3
-=======
-		if abs(self.i_error) < 600:
-			self.speed_coefficient = 1.5
->>>>>>> parent of 0c172d5... move pid_count to pidcontrol.py
 		else:
 			self.speed_coefficient = 1
 
@@ -53,7 +48,6 @@ class PID(object):
 
 	def evaluate(self):
 		self.currentEpochError_ = sqrt(self.epochCumulativeError_ / self.epochLength_)/100
-		self.updateSpeedCoeff()
 		#self.needsTraining_ = self.currentEpochError_ > self.errorThreshold_	
 		self.needsTraining_ = True
 
@@ -78,11 +72,12 @@ class PID(object):
 		self.adjust('i', -self.i_e_fabs, deltaError)
 		self.adjust('d', -self.d_error, deltaError)
 
-	def UpdateError(self, cte):
+	def UpdateError(self, cte, PID_count):
 		self.d_error = cte - self.p_error
 		self.p_error = cte
 		self.UpdateKiError(cte)#here
 		self.updateEpochError(cte)
+		self.updateSpeedCoeff(PID_count)
 
 	def UpdateKiError(self, cte):
 		self.i_error-=self.i_info[self.i_pointer]
