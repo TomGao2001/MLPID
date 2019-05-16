@@ -33,9 +33,9 @@ else:
 	MyKd = 2
 	print("Default values used")
 '''	
-MyKp = 0.8555
-MyKi = 0.1#0.04
-MyKd = 2
+MyKp = 0.6
+MyKi = 0#0.04
+MyKd = 1.8
 
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
@@ -165,7 +165,7 @@ while (True):
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
 		if(pid_controller.needsTraining_):
-			pid_controller.backProp()
+			#pid_controller.backProp()
 		pid_controller.resetEpochError()
 	
 	pid_controller.UpdateError(error)
