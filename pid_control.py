@@ -39,7 +39,7 @@ class PID(object):
 		self.epochCumulativeError_ += (cte*cte)	
 
 	def updateSpeedCoeff(self):
-		if self.PID_count > 1000 and abs(self.i_error) < 600:
+		if self.PID_count > 500 and abs(self.i_error) < 600:
 			self.speed_coefficient = 1.3
 		else:
 			self.speed_coefficient = 1
