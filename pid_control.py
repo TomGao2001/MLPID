@@ -41,7 +41,7 @@ class PID(object):
 		if PID_count > 500 and abs(self.i_error) < 600:
 			self.speed_coefficient = 1.3
 		else:
-			self.speed_coefficient = 1
+			self.speed_coefficient = 1.0
 
 	def resetEpochError(self):
 		self.epochCumulativeError_ = 0.0
@@ -77,7 +77,7 @@ class PID(object):
 		self.p_error = cte
 		self.UpdateKiError(cte)#here
 		self.updateEpochError(cte)
-		self.updateSpeedCoeff(PID_count)
+		#self.updateSpeedCoeff(PID_count)
 
 	def UpdateKiError(self, cte):
 		self.i_error-=self.i_info[self.i_pointer]
