@@ -1,3 +1,6 @@
+# created by Lucien and Tom in 2018/9
+# for SBS Data Science project
+
 from math import sqrt
 
 class PID(object):

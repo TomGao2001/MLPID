@@ -1,3 +1,6 @@
+# created by Lucien and Tom in 2018/9
+# for SBS Data Science project
+
 from __future__ import print_function # use python 3 syntax but make it compatible with python 2
 from __future__ import division       #                           ''
 from pid_control import PID
