@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import os
 import time     # import the time library for the sleep function
 import brickpi3  # import the BrickPi3 drivers
+import csv
 
 BP = brickpi3.BrickPi3()
 BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.EV3_COLOR_REFLECTED)
@@ -108,6 +109,9 @@ def printCurrentParameters():
 def printCurrentLearningParameters():
 	print("Current parameters:\nKi_info_length : " + str(pid_controller.Ki_info_length) + "\nLearning rate : " + str(pid_controller.learnRate_)[:10])
 
+with open('result.csv', mode='w') as output:
+    result = csv.writer(output, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+result.writerow(["PIDCount","Kp","Ki","Kd","error"])
 while (True):
 	#initialization()
 	while not start_flag:
@@ -207,14 +211,7 @@ while (True):
 	Ki_history.append(pid_controller.Ki)
 	Kd_history.append(pid_controller.Kd)
 	Error_history.append(raw_error)
-
-	time.sleep(sampling_interval)
-
-with open("param.txt","w+") as f:
-	f.write(str(pid_controller.Kp)+"\n")
-	f.write(str(pid_controller.Ki)+"\n")
-	f.write(str(pid_controller.Kd)+"\n")
-
+	result.writerow([PID_count,pid_controller.Kp,pid_controller.Ki,pid_controller.Kd,raw_error])
 print("TIME ELAPSED: " + str(end_time - start_time)[:5])
 print("PID count: " + str(PID_count))
 print("SPEED: " + str(MySpeed)[:5])
@@ -239,4 +236,5 @@ ax3.set(xlabel='count', ylabel='error')
 ax3.grid()
 
 fig.savefig("pid.png")
+output.close()
 plt.show()
