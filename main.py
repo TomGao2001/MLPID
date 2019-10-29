@@ -187,8 +187,9 @@ while (True):
 	print("Current i_e_fabs: "+ str(pid_controller.i_e_fabs))
 	print("Current Speed Coefficient: " + str(pid_controller.speed_coefficient))
 	print("Current color sensor value: " + str(BP.get_sensor(BP.PORT_4)))
-	BP.set_motor_power(BP.PORT_C, pid_controller.speed_coefficient*min(100,max(0, MySpeed - steer)))
-	BP.set_motor_power(BP.PORT_B, pid_controller.speed_coefficient*min(100,max(0, MySpeed + steer)))
+	#黑左白右 
+	BP.set_motor_power(BP.PORT_B, pid_controller.speed_coefficient*min(100,max(0, MySpeed - steer)))
+	BP.set_motor_power(BP.PORT_C, pid_controller.speed_coefficient*min(100,max(0, MySpeed + steer)))
 	PID_count += 1
 
 	TOTAL_ERROR += abs(error) * (0.01+sampling_interval)
