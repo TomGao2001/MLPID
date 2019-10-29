@@ -109,8 +109,8 @@ def printCurrentParameters():
 def printCurrentLearningParameters():
 	print("Current parameters:\nKi_info_length : " + str(pid_controller.Ki_info_length) + "\nLearning rate : " + str(pid_controller.learnRate_)[:10])
 
-with open('result.csv', mode='w') as output:
-    result = csv.writer(output, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+output = open('result.csv', mode='w')
+result = csv.writer(output, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 result.writerow(["PIDCount","Kp","Ki","Kd","error"])
 while (True):
 	#initialization()
