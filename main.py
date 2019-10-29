@@ -79,7 +79,7 @@ sampling_interval = 0
 #500? tbd it actually depends.
 Ki_info_length = 100
 
-base_speed = 40
+base_speed = 30
 
 MySpeed = base_speed
 pid_controller = PID(MyKp, MyKi, MyKd, Ki_info_length)
