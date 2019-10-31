@@ -39,7 +39,7 @@ else:
 '''	
 MyKp = 0.46
 MyKi = 0.05
-MyKd = 1.6
+MyKd = 1.63
 
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
@@ -172,7 +172,7 @@ while (True):
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
 		if(pid_controller.needsTraining_):
-			pid_controller.backProp()
+			#pid_controller.backProp()
 		pid_controller.resetEpochError()
 	
 	pid_controller.UpdateError(error, PID_count)
