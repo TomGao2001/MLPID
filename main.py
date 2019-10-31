@@ -37,9 +37,9 @@ else:
 	MyKd = 2
 	print("Default values used")
 '''	
-MyKp = 0.6
+MyKp = 0.46
 MyKi = 0.05
-MyKd = 1.8
+MyKd = 1.6
 
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
