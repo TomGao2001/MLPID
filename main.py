@@ -171,8 +171,8 @@ while (True):
 
 	if PID_count % pid_controller.epochLength_ == 0:
 		pid_controller.evaluate()
-		#if(pid_controller.needsTraining_):
-		#	pid_controller.backProp()
+		if(pid_controller.needsTraining_):
+			pid_controller.backProp()
 		pid_controller.resetEpochError()
 	
 	pid_controller.UpdateError(error, PID_count)
