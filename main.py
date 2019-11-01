@@ -38,7 +38,7 @@ else:
 	print("Default values used")
 '''	
 MyKp = 0.46
-MyKi = 0.05
+MyKi = 0
 MyKd = 1.63
 
 # BP.get_sensor retrieves a sensor value.
