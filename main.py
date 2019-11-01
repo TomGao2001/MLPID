@@ -40,7 +40,8 @@ else:
 MyKp = 0.46
 MyKi = 0
 MyKd = 1.63
-
+a=[]
+c=True
 # BP.get_sensor retrieves a sensor value.
 # BP.PORT_1 specifies that we are looking for the value of sensor port 1.
 # BP.get_sensor returns the sensor value (what we want to display).
@@ -161,7 +162,13 @@ while (True):
 			break
 	
 	os.system('clear')
-	
+
+	color=BP.get_sensor(BP.PORT_4)
+	if color==2 and c:
+		a.append(PID_count)
+		c=False
+	else:
+		c=True
 	error = BP.get_sensor(BP.PORT_1) - COLOR_OFFSET
 	error = min(40,error)
 	error = max(-40,error)
@@ -218,6 +225,7 @@ print("TIME ELAPSED: " + str(end_time - start_time)[:5])
 print("PID count: " + str(PID_count))
 print("SPEED: " + str(MySpeed)[:5])
 print("TOTAL ERROR: " + str(TOTAL_ERROR)[:10])
+print("LAP PID COUNTs: "+a)
 
 fig, (ax0, ax1,ax2,ax3) = plt.subplots(nrows = 4, ncols=1, constrained_layout=True)
 
