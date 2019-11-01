@@ -164,7 +164,7 @@ while (True):
 	os.system('clear')
 
 	color=BP.get_sensor(BP.PORT_4)
-	if color==2 and c:
+	if color==5 and c:
 		a.append(PID_count)
 		c=False
 	else:
