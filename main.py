@@ -4,8 +4,8 @@
 from __future__ import print_function # use python 3 syntax but make it compatible with python 2
 from __future__ import division       #                           ''
 from pid_control import PID
-import matplotlib
-import matplotlib.pyplot as plt
+#import matplotlib
+#import matplotlib.pyplot as plt
 import os
 import time     # import the time library for the sleep function
 import brickpi3  # import the BrickPi3 drivers
@@ -226,7 +226,7 @@ print("PID count: " + str(PID_count))
 print("SPEED: " + str(MySpeed)[:5])
 print("TOTAL ERROR: " + str(TOTAL_ERROR)[:10])
 print("LAP PID COUNTs: "+a)
-
+'''
 fig, (ax0, ax1,ax2,ax3) = plt.subplots(nrows = 4, ncols=1, constrained_layout=True)
 
 ax0.plot(T,Kp_history)
@@ -248,3 +248,4 @@ ax3.grid()
 fig.savefig("pid.png")
 output.close()
 plt.show()
+'''
